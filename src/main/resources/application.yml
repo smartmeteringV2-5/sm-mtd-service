@@ -1,0 +1,29 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: sm-mtd-service
+#  cloud:
+#    config:
+#      uri: http://127.0.0.1:8888
+#      name: user-service
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+
+
+
