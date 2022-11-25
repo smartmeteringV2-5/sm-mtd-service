@@ -21,34 +21,24 @@ public class MtdMeterinfoLeak {
     @EmbeddedId
     private MtdMeterinfoLeakEntity id;
 
-    @Column
     private Integer acube_signal01;
 
-    @Column
     private Integer acube_signal02;
 
-    @Column
     private Date criterion_date;
 
-    @Column
     private BigInteger group_sid;
 
-    @Column
     private String info_tag;
 
-    @Column
     private Integer metering_signal01;
 
-    @Column
     private Integer metering_signal02;
 
-    @Column
     private Integer metering_signal03;
 
-    @Column
     private Integer metering_signal04;
 
-    @Column
     private String metering_state;
 
     @Column(precision = 10, scale = 3)
@@ -57,16 +47,12 @@ public class MtdMeterinfoLeak {
     @Column(precision = 10, scale = 3)
     private BigDecimal metering_value;
 
-    @Column
     private Integer  modem_rssi;
 
-    @Column
     private Integer modem_signal01;
 
-    @Column
     private Integer modem_signal02;
 
-    @Column
     private Integer modem_signal03;
 
 

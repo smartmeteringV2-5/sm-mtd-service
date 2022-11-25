@@ -14,7 +14,6 @@ public class MessageErrorLogEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer log_sid;
 
-    @Column
     private String log_tag;
     @Column(length = 1000)
     private String log_content;

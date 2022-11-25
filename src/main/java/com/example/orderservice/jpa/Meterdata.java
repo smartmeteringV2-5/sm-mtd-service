@@ -54,25 +54,20 @@ public class Meterdata {
 
 //    @Comment("metering_rssi")
 //    @ColumnDefault("0")
-    @Column
     private Integer  modem_rssi;
 
 //    @Comment("모뎀 배터리 상태 (0: 정상, 1: 저전압)")
-    @Column
     private  Integer modem_signal01;
 
 //    @Comment("계량기 통신상태 (0: 정상, 1:통신불가)")
-    @Column
     private  Integer modem_signal02;
 
 //    @Comment("시간상태 동기화(1: 정상, 0: 동기화 불가)")
-    @Column
     private  Integer modem_signal03;
 
     @Column(nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" )
     private Date insert_date;
 
-    @Column
     private Date update_date;
 
 //    @ColumnDefault("0.000")

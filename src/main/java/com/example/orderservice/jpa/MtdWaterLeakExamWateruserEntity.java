@@ -19,31 +19,23 @@ public class MtdWaterLeakExamWateruserEntity implements Serializable {
     @Id
     private Long exam_wateruser_idx;
 
-    @Column
     private String area_id;
 
-    @Column
     private String dividarea;
 
-    @Column
     private String dongno;
 
-    @Column
     private String exam_result;
 
-    @Column
     private Long group_sid;
 
     @Column(precision = 10, scale = 3)
     private BigDecimal leak_min_usage;
 
-    @Column
     private Long consumer_sid;
 
-    @Column
     private Long exam_group_idx;
 
-    @Column
     private String city;
 
 

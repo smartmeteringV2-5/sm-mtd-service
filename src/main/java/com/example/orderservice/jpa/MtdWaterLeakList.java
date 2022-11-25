@@ -18,34 +18,25 @@ public class MtdWaterLeakList {
     @EmbeddedId
     private MtdWaterLeakListEntity id;
 
-    @Column
     private String adress;
 
-    @Column
     private Date alert_date;
 
-    @Column
     private String caliber;
 
-    @Column
     private String consumer_name;
 
-    @Column
     private String consumer_sid;
 
-    @Column
     private String end_date;
 
-    @Column
     private Boolean is_continous;
 
-    @Column
     private Boolean is_over;
 
     @Column(precision = 19, scale = 2)
     private BigDecimal leak_predict;
 
-    @Column
     private String start_date;
 
 

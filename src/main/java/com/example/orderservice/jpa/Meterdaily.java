@@ -51,7 +51,6 @@ public class Meterdaily {
 
 //    @Comment("rssi")
 //    @ColumnDefault("'0'")
-    @Column
     private String  modem_rssi;
 
 //    @Comment("결선불량")
@@ -59,7 +58,6 @@ public class Meterdaily {
     private BigDecimal disconnected;
 
 //    @Comment("타임싱크")
-    @Column
     private Integer time_sync;
 
 //    @Comment("검침상태")
@@ -69,7 +67,6 @@ public class Meterdaily {
     @Column(nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" )
     private Date insert_date;
 
-    @Column
     private Date update_date;
 
     @Column(nullable = false, precision = 2, scale = 1 )

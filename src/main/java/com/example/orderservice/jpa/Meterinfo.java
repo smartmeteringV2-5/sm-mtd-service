@@ -58,37 +58,28 @@ public class Meterinfo {
     @Column(nullable = false)
     private Integer metering_signal04;
 
-    @Column
     private Integer  modem_rssi;
 
-    @Column
     private Integer modem_signal01;
 
-    @Column
     private Integer modem_signal02;
 
-    @Column
     private Integer modem_signal03;
 
 //    @Comment("생성형태 NORMAL/SMOOTHING")
-    @Column
     private String info_tag;
 
-    @Column
     private String info_tag_detail;
 
 //    @ColumnDefault("0")
-    @Column
     private Integer acube_signal01;
 
 //    @ColumnDefault("0")
-    @Column
     private Integer acube_signal02;
 
     @Column(nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" )
     private Date insert_date;
 
-    @Column
     private Date update_date;
 
 
