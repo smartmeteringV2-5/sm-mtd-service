@@ -2,10 +2,9 @@ package com.example.orderservice.jpa;
 
 import lombok.Data;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.ManyToAny;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -14,7 +13,6 @@ import java.util.Date;
 @Data
 @Embeddable
 public class MtdMeterinfoLeakEntity implements Serializable {
-
     @Column(nullable = false, name = "exam_wateruser_idx")
     private Long exam_wateruser_idx;
 

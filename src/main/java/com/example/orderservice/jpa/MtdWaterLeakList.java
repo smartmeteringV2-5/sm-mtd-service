@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@DynamicInsert
 @Data
 @Entity
 @Table(name = "Mtd_Water_Leak_List")

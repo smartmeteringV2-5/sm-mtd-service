@@ -16,6 +16,10 @@ public class MtdWaterLeakExamWateruserEntity implements Serializable {
     @JoinColumn(name = "exam_wateruser_idx")
     private Set<MtdMeterinfoLeak> mtdMeterinfoLeaks;
 
+    @OneToMany
+    @JoinColumn(name = "exam_group_idx")
+    private Set<MtdWaterLeakExamGroupEntity> mtdWaterLeakExamGroupEntities;
+
     @Id
     private Long exam_wateruser_idx;
 

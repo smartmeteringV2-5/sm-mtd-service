@@ -10,7 +10,7 @@ import java.util.Date;
 @DynamicInsert
 @Data
 @Entity
-@Table(name = "Meterdate", indexes = { @Index(name = "meterdata_modem_id_IDX" , columnList = "modem_id"),
+@Table(name = "Meterdata", indexes = { @Index(name = "meterdata_modem_id_IDX" , columnList = "modem_id"),
         @Index(name = "metering_date_index" , columnList = "metering_date"),
         @Index(name = "receiving_date" , columnList = "receiving_date")
 })
