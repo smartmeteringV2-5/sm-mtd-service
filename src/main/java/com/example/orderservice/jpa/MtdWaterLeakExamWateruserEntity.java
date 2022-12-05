@@ -16,30 +16,30 @@ public class MtdWaterLeakExamWateruserEntity implements Serializable {
     @JoinColumn(name = "exam_wateruser_idx")
     private Set<MtdMeterinfoLeak> mtdMeterinfoLeaks;
 
-    @OneToMany
-    @JoinColumn(name = "exam_group_idx")
-    private Set<MtdWaterLeakExamGroupEntity> mtdWaterLeakExamGroupEntities;
+//    @OneToMany
+//    @JoinColumn(name = "exam_group_idx")
+//    private Set<MtdWaterLeakExamGroupEntity> mtdWaterLeakExamGroupEntities;
 
     @Id
     private Long exam_wateruser_idx;
 
-    private String area_id;
-
+    @Column(name = "area_id")
+    private String areaId;
+    @Column(name = "dividarea")
     private String dividarea;
-
+    @Column(name = "dongno")
     private String dongno;
-
-    private String exam_result;
-
-    private Long group_sid;
-
+    @Column(name = "exam_result")
+    private String examResult;
+    @Column(name = "group_sid")
+    private Long groupSid;
     @Column(precision = 10, scale = 3)
-    private BigDecimal leak_min_usage;
-
+    private BigDecimal leakMinUsage;
+    @Column(name = "consumer_sid")
     private Long consumer_sid;
-
-    private Long exam_group_idx;
-
+    @Column(name = "exam_group_idx")
+    private Long examGroupIdx;
+    @Column(name = "city")
     private String city;
 
 

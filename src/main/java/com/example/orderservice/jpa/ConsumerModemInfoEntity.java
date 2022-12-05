@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Data
 @Immutable
-@Table(name = "consumer_modem _info")
+@Table(name = "consumer_modem_info")
 public class ConsumerModemInfoEntity implements Serializable {
 
     private String mng_id;

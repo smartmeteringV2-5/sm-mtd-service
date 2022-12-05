@@ -28,9 +28,9 @@ public class MtdWaterLeakExamGroupEntity implements Serializable {
 
     private String exam_nm;
 
-    private Date exam_plan_start_dt;
+    private Date examPlanStartDt;
 
-    private Date exam_started_dt;
+    private Date examStartedDt;
 
     private String exam_status;
 
