@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface WateruserRepository extends  JpaRepository<MtdWaterLeakExamWateruserEntity,Long> {
     @Query(nativeQuery = true,
-            value = "CREATE VIEW consumer_modem_info AS SELECT v.mng_id, v.wateruser_type, v.wateruser_name, v.new_address, " +
+            value = "SELECT v.mng_id, v.wateruser_type, v.wateruser_name, v.new_address, " +
                     "v.wateruser_indust, v.area_nm, v.wateruser_state, w.exam_result, w.leak_min_usage, w.area_id, w.dividarea," +
                     " w.dongno, w.group_sid, w.consumer_sid, w.exam_group_idx, w.exam_wateruser_idx, w.city " +
                     "FROM consumer_modem_info As v JOIN mtd_water_leak_exam_wateruser " +
