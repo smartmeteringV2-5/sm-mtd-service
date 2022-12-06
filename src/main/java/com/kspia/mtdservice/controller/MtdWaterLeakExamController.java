@@ -2,7 +2,10 @@ package com.kspia.mtdservice.controller;
 
 import com.kspia.mtdservice.jpa.MtdWaterLeakExamGroupEntity;
 import com.kspia.mtdservice.service.GroupServiceImpl;
+import com.kspia.mtdservice.service.WateruserServiceImpl;
 import com.kspia.mtdservice.vo.RequestGroup;
+import com.kspia.mtdservice.vo.RequestWateruser;
+import com.querydsl.core.Tuple;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,13 +16,15 @@ import java.util.List;
 public class MtdWaterLeakExamController {
     Environment env;
     GroupServiceImpl groupService;
+    WateruserServiceImpl wateruserService;
 
 
 
-    public MtdWaterLeakExamController(Environment env,GroupServiceImpl groupService) {
+    public MtdWaterLeakExamController(Environment env,GroupServiceImpl groupService, WateruserServiceImpl wateruserService) {
 
         this.env = env;
         this.groupService = groupService;
+        this.wateruserService = wateruserService;
     }
 
     @GetMapping("/health_check")
@@ -34,6 +39,16 @@ public class MtdWaterLeakExamController {
         return groupEntityList;
     }
 
+    @RequestMapping(value = "/wateruser/list",method = RequestMethod.POST)
+    public List<Tuple> getResultList(@RequestBody RequestWateruser wateruser) {
+        List<Tuple> wateruserEntityList = wateruserService.getResultList(wateruser);
+        return wateruserEntityList;
+    }
+//    @RequestMapping(value = "/wateruser/test", method = RequestMethod.GET)
+//    public List<ConsumerModemInfoEntity> getGetTest (@RequestBody RequestWateruser wateruser) {
+//        List<ConsumerModemInfoEntity> wateruserEntityList = wateruserService.getResultList(wateruser);
+//        return wateruserEntityList;
+//    }
 
 
 
