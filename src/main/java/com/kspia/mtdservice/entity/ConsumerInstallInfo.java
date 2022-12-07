@@ -70,7 +70,7 @@ public class ConsumerInstallInfo implements Serializable {
     private String block_s_cd;
 
     @Column(length = 511)
-    private String vworld_gpk;
+    private String vworld_gps;
 
     private String geo_x;
 
