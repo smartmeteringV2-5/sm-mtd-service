@@ -17,7 +17,7 @@ import java.util.Date;
 @Table(name = "consumer_modem_info")
 public class ConsumerModemInfoEntity implements Serializable {
     @Id
-    private BigInteger consumer_sid;
+    private Long consumer_sid;
 
     private String mng_id;
 
@@ -29,25 +29,25 @@ public class ConsumerModemInfoEntity implements Serializable {
 
     private String wateruser_gauge;
 
-    private String wqteruser_indust;
+    private String wateruser_indust;
 
     private String wateruser_state;
 
     private String wateruser_type;
 
     @Column(length = 510)
-    private String new_adress;
+    private String new_address;
 
     @Column(length = 510)
-    private String old_adress;
+    private String old_address;
 
-    private Long group_id;
+    private Long group_sid;
 
     private Date install_date;
 
     private String modem_company;
 
-    private String modem_ii;
+    private String modem_id;
 
     private String modem_telecom;
 
