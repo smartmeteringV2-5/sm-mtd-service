@@ -1,4 +1,4 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity.id;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Embeddable
-public class MtdMeterinfoLeakEntity implements Serializable {
+public class MtdMeterinfoLeakId implements Serializable {
     @Column(nullable = false, name = "exam_wateruser_idx")
     private Long exam_wateruser_idx;
 

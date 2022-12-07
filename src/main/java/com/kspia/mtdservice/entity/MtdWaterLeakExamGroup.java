@@ -1,4 +1,4 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "Mtd_Water_Leak_Exam_Group")
-public class MtdWaterLeakExamGroupEntity implements Serializable {
+public class MtdWaterLeakExamGroup implements Serializable {
     @Id
     private Long exam_group_idx;
 

@@ -1,5 +1,6 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity;
 
+import com.kspia.mtdservice.entity.id.MtdWaterLeakListId;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.util.Date;
 public class MtdWaterLeakList {
 
     @EmbeddedId
-    private MtdWaterLeakListEntity id;
+    private MtdWaterLeakListId id;
 
     private String adress;
 

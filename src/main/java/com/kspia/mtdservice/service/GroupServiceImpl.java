@@ -1,7 +1,7 @@
 package com.kspia.mtdservice.service;
 
+import com.kspia.mtdservice.entity.MtdWaterLeakExamGroup;
 import com.kspia.mtdservice.repository.GroupRepository;
-import com.kspia.mtdservice.jpa.MtdWaterLeakExamGroupEntity;
 import com.kspia.mtdservice.vo.RequestGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<MtdWaterLeakExamGroupEntity> getPostList(RequestGroup group) {
+    public List<MtdWaterLeakExamGroup> getPostList(RequestGroup group) {
         return groupRepository.findByExamPlanStartDtBetween(group.getFromDate(), group.getToDate());
     }
 }

@@ -1,4 +1,4 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity.id;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 @Embeddable
-public class MeterdailyEntity implements Serializable {
+public class MeterdailyId implements Serializable {
     @Column(nullable = false)
     private String modem_id;
 

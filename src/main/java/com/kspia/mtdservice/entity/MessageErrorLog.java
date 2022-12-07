@@ -1,4 +1,4 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "message_error_log")
-public class MessageErrorLogEntity implements Serializable {
+public class MessageErrorLog implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer log_sid;

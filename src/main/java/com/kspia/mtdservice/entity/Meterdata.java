@@ -1,5 +1,6 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity;
 
+import com.kspia.mtdservice.entity.id.MeterdataId;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -17,7 +18,7 @@ import java.util.Date;
 public class Meterdata {
 
     @EmbeddedId
-    private MeterdataEntity meterdataEntity;
+    private MeterdataId meterdataId;
 
 //    @Comment("수신시각")
     @Column(nullable = false)

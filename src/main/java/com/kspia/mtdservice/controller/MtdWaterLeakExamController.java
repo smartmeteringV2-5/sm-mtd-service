@@ -1,6 +1,6 @@
 package com.kspia.mtdservice.controller;
 
-import com.kspia.mtdservice.jpa.MtdWaterLeakExamGroupEntity;
+import com.kspia.mtdservice.entity.MtdWaterLeakExamGroup;
 import com.kspia.mtdservice.service.GroupServiceImpl;
 import com.kspia.mtdservice.service.WateruserServiceImpl;
 import com.kspia.mtdservice.vo.RequestGroup;
@@ -34,8 +34,8 @@ public class MtdWaterLeakExamController {
    }
 
     @RequestMapping(value = "/group/list",method = RequestMethod.POST)
-    public List<MtdWaterLeakExamGroupEntity> getPostList(@RequestBody RequestGroup group) {
-        List<MtdWaterLeakExamGroupEntity> groupEntityList = groupService.getPostList(group);
+    public List<MtdWaterLeakExamGroup> getPostList(@RequestBody RequestGroup group) {
+        List<MtdWaterLeakExamGroup> groupEntityList = groupService.getPostList(group);
         return groupEntityList;
     }
 

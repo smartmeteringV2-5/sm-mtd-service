@@ -1,4 +1,4 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.Immutable;
@@ -8,14 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 
 @Data
 @Immutable
 @Entity
 @Table(name = "consumer_modem_info")
-public class ConsumerModemInfoEntity implements Serializable {
+public class ConsumerModemInfo implements Serializable {
     @Id
     private Long consumer_sid;
 

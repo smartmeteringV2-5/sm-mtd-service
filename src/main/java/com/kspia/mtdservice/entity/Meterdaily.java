@@ -1,5 +1,6 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity;
 
+import com.kspia.mtdservice.entity.id.MeterdailyId;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import java.util.Date;
 public class Meterdaily {
 
     @EmbeddedId
-    private MeterdailyEntity meterdailyEntity;
+    private MeterdailyId meterdailyId;
 
 //    @Comment("데이터가 만들어지는 시점의 마지막 값")
     @Column(nullable = false, precision = 10, scale = 3)
