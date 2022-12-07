@@ -10,8 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
 import java.util.List;
+
 @Repository
-public class WateruserRepositoryImpl implements WateruserRepository{
+public class WateruserRepositoryImpl implements WateruserRepository {
+
     private final JPAQueryFactory jpaQueryFactory;
 
     public WateruserRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
@@ -30,14 +32,12 @@ public class WateruserRepositoryImpl implements WateruserRepository{
     public List<Tuple> findByExamGroupIdx(Long exam_group_idx) {
 
         QMtdWaterLeakExamWateruserEntity wateruserEntity = QMtdWaterLeakExamWateruserEntity.mtdWaterLeakExamWateruserEntity;
-        QConsumerModemInfoEntity consumerModemInfoEntity =QConsumerModemInfoEntity.consumerModemInfoEntity;
-        NumberPath<Integer> intPath = Expressions.numberPath(Integer.class, "intPath");
+        QConsumerModemInfoEntity consumerModemInfoEntity = QConsumerModemInfoEntity.consumerModemInfoEntity;
 
-        List<Tuple> list = jpaQueryFactory.select(consumerModemInfoEntity, wateruserEntity)
-                .from(consumerModemInfoEntity)
-                .join(wateruserEntity).on(consumerModemInfoEntity.consumer_sid.eq(intPath.wateruserEntity.consumer_sid.longValue()).fetch());
+        return jpaQueryFactory.select(consumerModemInfoEntity, wateruserEntity)
+            .from(consumerModemInfoEntity)
+            .join(wateruserEntity).on(consumerModemInfoEntity.consumer_sid.eq(wateruserEntity.consumer_sid.longValue()))
+            .fetch();
 
-
-        return list;
     }
 }
