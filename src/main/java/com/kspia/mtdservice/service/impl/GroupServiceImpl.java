@@ -1,7 +1,8 @@
-package com.kspia.mtdservice.service;
+package com.kspia.mtdservice.service.impl;
 
 import com.kspia.mtdservice.entity.MtdWaterLeakExamGroup;
 import com.kspia.mtdservice.repository.GroupRepository;
+import com.kspia.mtdservice.service.GroupService;
 import com.kspia.mtdservice.vo.RequestGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
