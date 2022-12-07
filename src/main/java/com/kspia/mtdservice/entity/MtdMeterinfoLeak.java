@@ -1,5 +1,6 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity;
 
+import com.kspia.mtdservice.entity.id.MtdMeterinfoLeakId;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import java.util.Date;
 public class MtdMeterinfoLeak {
 
     @EmbeddedId
-    private MtdMeterinfoLeakEntity id;
+    private MtdMeterinfoLeakId id;
 
     private Integer acube_signal01;
 

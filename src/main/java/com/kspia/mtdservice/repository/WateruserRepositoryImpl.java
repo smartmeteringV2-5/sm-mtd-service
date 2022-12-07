@@ -1,14 +1,11 @@
 package com.kspia.mtdservice.repository;
 
-import com.kspia.mtdservice.jpa.QConsumerModemInfoEntity;
-import com.kspia.mtdservice.jpa.QMtdWaterLeakExamWateruserEntity;
+import com.kspia.mtdservice.entity.QConsumerModemInfo;
+import com.kspia.mtdservice.entity.QMtdWaterLeakExamWateruser;
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @Repository
@@ -31,12 +28,12 @@ public class WateruserRepositoryImpl implements WateruserRepository {
     @Override
     public List<Tuple> findByExamGroupIdx(Long exam_group_idx) {
 
-        QMtdWaterLeakExamWateruserEntity wateruserEntity = QMtdWaterLeakExamWateruserEntity.mtdWaterLeakExamWateruserEntity;
-        QConsumerModemInfoEntity consumerModemInfoEntity = QConsumerModemInfoEntity.consumerModemInfoEntity;
+        QMtdWaterLeakExamWateruser wateruser = QMtdWaterLeakExamWateruser.mtdWaterLeakExamWateruser;
+        QConsumerModemInfo consumerModemInfo = QConsumerModemInfo.consumerModemInfo;
 
-        return jpaQueryFactory.select(consumerModemInfoEntity, wateruserEntity)
-            .from(consumerModemInfoEntity)
-            .join(wateruserEntity).on(consumerModemInfoEntity.consumer_sid.eq(wateruserEntity.consumer_sid.longValue()))
+        return jpaQueryFactory.select(consumerModemInfo, wateruser)
+            .from(consumerModemInfo)
+            .join(wateruser).on(consumerModemInfo.consumer_sid.eq(wateruser.consumer_sid.longValue()))
             .fetch();
 
     }

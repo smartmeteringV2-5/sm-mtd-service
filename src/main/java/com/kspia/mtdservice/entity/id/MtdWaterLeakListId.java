@@ -1,4 +1,4 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity.id;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @Embeddable
-public class MtdWaterLeakListEntity implements Serializable {
+public class MtdWaterLeakListId implements Serializable {
 
     @Column(nullable = false, name = "mng_id")
     private String mong_id;

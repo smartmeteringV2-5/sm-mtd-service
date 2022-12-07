@@ -1,4 +1,4 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Table(name = "Orders")
-public class OrdersEntity implements Serializable {
+public class Orders implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

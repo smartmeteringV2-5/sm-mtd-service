@@ -1,7 +1,7 @@
 package com.kspia.mtdservice;
 
-import com.kspia.mtdservice.jpa.ConsumerModemInfoEntity;
-import com.kspia.mtdservice.jpa.QConsumerModemInfoEntity;
+import com.kspia.mtdservice.entity.ConsumerModemInfo;
+import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,13 +21,13 @@ class SmMtdServiceApplicationTests {
 
     @Test
     void contextLoads() {
-        ConsumerModemInfoEntity info = new ConsumerModemInfoEntity();
+        ConsumerModemInfo info = new ConsumerModemInfo();
         em.persist(info);
 
         JPAQueryFactory query = new JPAQueryFactory(em);
-        QConsumerModemInfoEntity qInfo = new QConsumerModemInfoEntity("c");
+        QConsumerModemInfo qInfo = new QConsumerModemInfo("c");
 
-        ConsumerModemInfoEntity result = query
+        ConsumerModemInfo result = query
                 .selectFrom(qInfo)
                 .fetchOne();
 

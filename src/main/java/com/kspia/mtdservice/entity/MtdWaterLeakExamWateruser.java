@@ -1,4 +1,4 @@
-package com.kspia.mtdservice.jpa;
+package com.kspia.mtdservice.entity;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "Mtd_Water_Leak_Exam_Wateruser", indexes = { @Index(name = "FKhe5m1okl6whjid4rxb4qy0r9v" , columnList = "exam_group_idx")})
-public class MtdWaterLeakExamWateruserEntity implements Serializable {
+public class MtdWaterLeakExamWateruser implements Serializable {
     @OneToMany
     @JoinColumn(name = "exam_wateruser_idx")
     private Set<MtdMeterinfoLeak> mtdMeterinfoLeaks;
