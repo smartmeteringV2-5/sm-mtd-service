@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "Message_Error_Log")
+@Table(name = "message_error_log")
 public class MessageErrorLogEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
