@@ -1,8 +1,8 @@
 package com.kspia.mtdservice.controller;
 
 import com.kspia.mtdservice.entity.MtdWaterLeakExamGroup;
-import com.kspia.mtdservice.service.GroupServiceImpl;
-import com.kspia.mtdservice.service.WateruserServiceImpl;
+import com.kspia.mtdservice.service.impl.GroupServiceImpl;
+import com.kspia.mtdservice.service.impl.WateruserServiceImpl;
 import com.kspia.mtdservice.vo.RequestGroup;
 import com.kspia.mtdservice.vo.RequestWateruser;
 import com.querydsl.core.Tuple;

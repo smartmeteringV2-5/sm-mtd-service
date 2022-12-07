@@ -1,7 +1,8 @@
-package com.kspia.mtdservice.repository;
+package com.kspia.mtdservice.repository.impl;
 
 import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.kspia.mtdservice.entity.QMtdWaterLeakExamWateruser;
+import com.kspia.mtdservice.repository.WateruserRepository;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
