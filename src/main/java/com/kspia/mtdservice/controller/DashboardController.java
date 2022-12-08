@@ -1,5 +1,6 @@
 package com.kspia.mtdservice.controller;
 
+import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.service.DashboardService;
 import java.util.Map;
@@ -38,5 +39,11 @@ public class DashboardController {
     @ResponseStatus(HttpStatus.OK)
     public ModemCount getModemCount() throws Exception {
         return service.getModemCount();
+    }
+    
+    @PostMapping(value = "/dashboard/MeterCount", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public MeterCount getMeterCount() throws Exception {
+        return service.getMeterCount();
     }
 }

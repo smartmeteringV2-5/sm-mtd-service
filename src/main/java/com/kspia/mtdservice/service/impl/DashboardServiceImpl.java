@@ -1,5 +1,6 @@
 package com.kspia.mtdservice.service.impl;
 
+import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.repository.MeterdailyRepository;
 import com.kspia.mtdservice.service.DashboardService;
@@ -30,4 +31,8 @@ public class DashboardServiceImpl implements DashboardService {
     public ModemCount getModemCount() {
       return meterdailyRepository.countByModemStatus();
     }
+    
+    public MeterCount getMeterCount() {
+        return meterdailyRepository.countByMeterStatus();
+      }
 }

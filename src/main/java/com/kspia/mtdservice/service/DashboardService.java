@@ -1,5 +1,6 @@
 package com.kspia.mtdservice.service;
 
+import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 
 /**
@@ -17,4 +18,5 @@ import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
  */
 public interface DashboardService {
     ModemCount getModemCount();
+    MeterCount getMeterCount();
 }
