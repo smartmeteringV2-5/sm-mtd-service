@@ -54,7 +54,7 @@ public class ConsumerModemInfo implements Serializable {
 
     private String area_id;
 
-    private Character area_nm;
+    private String area_nm;
 
     private String dong_cd;
 
