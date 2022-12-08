@@ -32,10 +32,13 @@ public class WateruserRepositoryImpl implements WateruserRepository {
         QMtdWaterLeakExamWateruser wateruser = QMtdWaterLeakExamWateruser.mtdWaterLeakExamWateruser;
         QConsumerModemInfo consumerModemInfo = QConsumerModemInfo.consumerModemInfo;
 
-        return jpaQueryFactory.select(consumerModemInfo, wateruser)
-            .from(consumerModemInfo)
-            .join(wateruser).on(consumerModemInfo.consumer_sid.eq(wateruser.consumer_sid.longValue()))
-            .fetch();
+        return jpaQueryFactory.select(wateruser, consumerModemInfo)
+                .from(wateruser)
+                .leftJoin(consumerModemInfo)
+                .on(wateruser.consumer_sid.eq(consumerModemInfo.consumer_sid))
+                .where(wateruser.examGroupIdx.eq(exam_group_idx), consumerModemInfo.isNotNull())
+                .fetch();
+
 
     }
 }
