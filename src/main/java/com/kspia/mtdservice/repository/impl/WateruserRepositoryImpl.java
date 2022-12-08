@@ -1,5 +1,7 @@
 package com.kspia.mtdservice.repository.impl;
 
+import com.kspia.mtdservice.entity.ConsumerInstallInfo;
+import com.kspia.mtdservice.entity.QConsumerInstallInfo;
 import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.kspia.mtdservice.entity.QMtdWaterLeakExamWateruser;
 import com.kspia.mtdservice.repository.WateruserRepository;
@@ -32,9 +34,11 @@ public class WateruserRepositoryImpl implements WateruserRepository {
         QMtdWaterLeakExamWateruser wateruser = QMtdWaterLeakExamWateruser.mtdWaterLeakExamWateruser;
         QConsumerModemInfo consumerModemInfo = QConsumerModemInfo.consumerModemInfo;
 
-        return jpaQueryFactory.select(consumerModemInfo, wateruser)
-            .from(consumerModemInfo)
-            .join(wateruser).on(consumerModemInfo.consumer_sid.eq(wateruser.consumer_sid.longValue()))
+        return jpaQueryFactory.select(wateruser, consumerModemInfo)
+            .from(wateruser)
+            .leftJoin(consumerModemInfo)
+            .on(wateruser.consumer_sid.eq(consumerModemInfo.consumer_sid))
+            .where(wateruser.examGroupIdx.eq(exam_group_idx), consumerModemInfo.isNotNull())
             .fetch();
 
     }
