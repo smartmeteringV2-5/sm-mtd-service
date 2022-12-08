@@ -34,10 +34,8 @@ public class ConsumerModemInfo implements Serializable {
 
     private String wateruser_type;
 
-    @Column(length = 510)
     private String new_address;
 
-    @Column(length = 510)
     private String old_address;
 
     private Long group_sid;
@@ -52,9 +50,9 @@ public class ConsumerModemInfo implements Serializable {
 
     private String dividarea;
 
-    private String area_id;
+    private int area_id;
 
-    private Character area_nm;
+    private String area_nm;
 
     private String dong_cd;
 
@@ -70,14 +68,12 @@ public class ConsumerModemInfo implements Serializable {
 
     private String block_s_cd;
 
-    @Column(length = 511)
     private String vworld_gps;
 
     private String geo_x;
 
     private String geo_y;
 
-    @Column(length = 511)
     private String google_gps;
 
     private String google_x;
@@ -88,7 +84,6 @@ public class ConsumerModemInfo implements Serializable {
 
     private String daum_y;
 
-    @Column(length = 511)
     private String daum_gps;
 
 
