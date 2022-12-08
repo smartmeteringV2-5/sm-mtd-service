@@ -20,7 +20,7 @@ public class Meterdaily {
 
 //    @Comment("데이터가 만들어지는 시점의 마지막 값")
     @Column(nullable = false, precision = 10, scale = 3)
-    private BigDecimal fast_value;
+    private BigDecimal past_value;
 
 //    @Comment("검침값들어오는 시간")
     @Column(nullable = false)
@@ -28,7 +28,7 @@ public class Meterdaily {
 
 //    @Comment("검침값들어오는 마지막")
     @Column(nullable = false, precision = 10, scale = 3)
-    private BigDecimal last_value;
+    private BigDecimal new_value;
 
 //    @Comment("차이값")
     @Column(nullable = false, precision = 10, scale = 3)
@@ -36,7 +36,7 @@ public class Meterdaily {
 
 //    @Comment("역류 TRUE:1, FALSE:0")
     @Column(nullable = false)
-    private Integer backflow;
+    private Integer meter_backflow;
 
 //    @Comment("계량기 배터리 1~4")
     @Column(nullable = false)
@@ -44,11 +44,11 @@ public class Meterdaily {
 
 //    @Comment("과부하 TRUE:1, FALSE:0")
     @Column(nullable = false)
-    private Integer overflow;
+    private Integer meter_overflow;
 
 //    @Comment("누수 TRUE:1, FALSE:0")
     @Column(nullable = false)
-    private Integer waterleak;
+    private Integer meter_waterleak;
 
 //    @Comment("rssi")
 //    @ColumnDefault("'0'")
@@ -56,7 +56,7 @@ public class Meterdaily {
 
 //    @Comment("결선불량")
     @Column(precision = 2, scale = 1)
-    private BigDecimal disconnected;
+    private BigDecimal modem_connect;
 
 //    @Comment("타임싱크")
     private Integer time_sync;
