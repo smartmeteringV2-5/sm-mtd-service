@@ -1,5 +1,6 @@
 package com.kspia.mtdservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.Data;
 import org.hibernate.annotations.Immutable;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 @Immutable
 @Entity
 @Table(name = "consumer_modem_info")
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class ConsumerModemInfo implements Serializable {
     @Id
     private Long consumer_sid;
