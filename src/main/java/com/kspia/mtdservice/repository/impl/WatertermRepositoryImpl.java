@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
  * ---------------------------------------------------
  * @EditHIstory
  * 개정이력
- * 2022. 5. 25 tjdgm : 최초 작성
  * 2022.12. 08 jung : 단말기 카운트 작업
  */
 @Repository
