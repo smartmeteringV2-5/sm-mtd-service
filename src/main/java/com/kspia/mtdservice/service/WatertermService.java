@@ -1,6 +1,6 @@
 package com.kspia.mtdservice.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 /**
  * @since 2022. 12. 8
@@ -15,5 +15,5 @@ import org.springframework.stereotype.Service;
  * 2022.12. 08 jung : 단말기 카운트 작업
  */
 public interface WatertermService {
-    Long getTotalCount();
+    List<Long> getTotalCount();
 }

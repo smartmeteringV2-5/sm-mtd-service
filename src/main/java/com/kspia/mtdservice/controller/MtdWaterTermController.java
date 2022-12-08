@@ -1,9 +1,11 @@
 package com.kspia.mtdservice.controller;
 
 import com.kspia.mtdservice.service.WatertermService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @since 2022. 12. 8
@@ -27,9 +29,10 @@ public class MtdWaterTermController {
         this.watertermService = watertermService;
     }
 
-    @GetMapping("waterterm")
-    public Long TermCount() {
-        Long number = watertermService.getTotalCount();
+    @GetMapping(value = "/dashboard/TermCount", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Long> TermCount() {
+        List<Long> number = watertermService.getTotalCount();
         return number;
     }
 

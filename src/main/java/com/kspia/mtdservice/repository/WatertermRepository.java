@@ -3,6 +3,8 @@ package com.kspia.mtdservice.repository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @since 2022. 12. 8
  * @author jung
@@ -19,5 +21,5 @@ import org.springframework.stereotype.Service;
 @Repository
 @Service
 public interface WatertermRepository {
-    Long count();
+    List<Long> countByTerm();
 }
