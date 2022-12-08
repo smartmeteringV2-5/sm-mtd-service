@@ -47,4 +47,12 @@ public class MeterdailyDto {
         private long timeSyncCnt;
         private long disconnectCnt;
     }
+    
+    @Data
+    @NoArgsConstructor
+    public static class MeterCount {
+        private long meterLowBatteryCnt;
+        private long overflowCnt;
+        private long waterLeakCnt;
+    }
 }
