@@ -5,7 +5,6 @@ import com.kspia.mtdservice.dto.MeterdailyDto.EquipStateMap;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
-import com.kspia.mtdservice.exception.DataNotFoundException;
 import com.kspia.mtdservice.repository.MeterdailyRepository;
 import com.kspia.mtdservice.vo.RequestSearch;
 import com.querydsl.core.types.Projections;
