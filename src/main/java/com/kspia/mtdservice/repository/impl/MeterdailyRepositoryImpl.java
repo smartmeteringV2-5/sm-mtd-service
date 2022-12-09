@@ -12,6 +12,9 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -42,6 +45,8 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
 
     @Override
     public ModemCount countByModemStatus() {
+        Date nowDate = Timestamp.valueOf(LocalDate.now().atStartOfDay());
+
         return jpaQueryFactory.select(Projections.bean(
                     MeterdailyDto.ModemCount.class,
                     new CaseBuilder().when(meterdaily.modem_battery.in(0, 1)).then(1).otherwise(0).sum().as("modemLowBatteryCnt"),
@@ -50,6 +55,7 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
                 )
             )
             .from(meterdaily)
+            .where(meterdaily.meterdailyId.daily_date.goe(nowDate))
             .fetchOne();
     }
 
