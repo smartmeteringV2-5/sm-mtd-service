@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.function.BiFunction;
 
 /**
  * @since 2022. 12. 9
@@ -13,7 +12,7 @@ import java.util.function.BiFunction;
  *
  * @Discript
  * ---------------------------------------------------
- * 개요 : 실시간 현황 조회 StatusCheckDto 생성
+ * 개요 : 실시간 현황 조회  SearchListDto생성
  * ---------------------------------------------------
  * @EditHIstory
  * 개정이력
@@ -22,26 +21,27 @@ import java.util.function.BiFunction;
  */
 @Data
 @NoArgsConstructor
-public class StatusCheckDto {
-    //일자
-
-    //사업소
-    private Integer area_id;
-    //행정동
-
-    //분구
-    private String dividarea;
+public class SearchListDto {
+    //번호
+    //검침일
+    private String check_day;
     //고객번호
     private String mng_id;
     //성명
     private String wateruser_name;
     //도로명주소
     private String new_address;
-    // meterid 계랑기번호
-    //검침일
-    private String check_day;
-    //급수전 구분
-    private String wateruser_state;
+    //수용가 번호
+    private String wateruser_id;
+    //가구 형태
+    private String wateruser_indust;
+// meterid 계랑기번호
+    //구경
+    private Integer wateruser_gauge;
+    //지침
+    private BigDecimal metering_value;
+    //온도
+    private BigDecimal metering_temp;
     //계랑기 상태
     private Integer meter_backflow; //역류
     private Integer meter_battery; //배터리
@@ -52,9 +52,12 @@ public class StatusCheckDto {
     private BigDecimal modem_connect; //결선불량
     private Integer time_sync;
     private BigDecimal modem_battery;
-    //구경
-    private Integer wateruser_gauge;
-
+    //검침 일시
+    private Date metering_date;
+    //수신 일시
+    private Date receiving_date;
+    //급수전 구분
+    private String wateruser_state;
 
 
 

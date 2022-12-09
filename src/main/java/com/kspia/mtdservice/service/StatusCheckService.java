@@ -1,5 +1,6 @@
 package com.kspia.mtdservice.service;
 
+import com.kspia.mtdservice.dto.SearchListDto;
 import com.kspia.mtdservice.dto.StatusCheckDto;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  * 2022.12. 09 jung : 실시간 현황 조회 작업
  */
 public interface StatusCheckService {
-   List<StatusCheckDto> getSearch(StatusCheckDto sc);
+   List<StatusCheckDto> getSearch(SearchListDto sc);
 
 
 }

@@ -1,5 +1,6 @@
 package com.kspia.mtdservice.service.impl;
 
+import com.kspia.mtdservice.dto.SearchListDto;
 import com.kspia.mtdservice.dto.StatusCheckDto;
 import com.kspia.mtdservice.repository.StatusCheckRepository;
 import com.kspia.mtdservice.service.StatusCheckService;
@@ -29,7 +30,7 @@ public class StatusCheckServiceImpl implements StatusCheckService {
     }
 
     @Override
-    public List<StatusCheckDto> getSearch(StatusCheckDto sc) {
+    public List<StatusCheckDto> getSearch(SearchListDto sc) {
         return StatusCheckRepository.statusCheckByMetering();
     }
 }

@@ -1,5 +1,6 @@
 package com.kspia.mtdservice.controller;
 
+import com.kspia.mtdservice.dto.SearchListDto;
 import com.kspia.mtdservice.dto.StatusCheckDto;
 import com.kspia.mtdservice.service.StatusCheckService;
 import org.springframework.http.HttpStatus;
@@ -33,8 +34,8 @@ public class MtdMeteringStatusCheckController {
 
     @PostMapping(value = "/usagehistory/status_check", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<StatusCheckDto> getSearch(@RequestBody StatusCheckDto sc) throws Exception{
-        List<StatusCheckDto> statusCheckList = statusCheckService.getSearch(sc);
+    public List<StatusCheckDto> getSearch(@RequestBody SearchListDto sl) throws Exception{
+        List<StatusCheckDto> statusCheckList = statusCheckService.getSearch(sl);
         return statusCheckList;
     }
 
