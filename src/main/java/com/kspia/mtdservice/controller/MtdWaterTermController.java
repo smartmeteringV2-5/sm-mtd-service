@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @since 2022. 12. 8
@@ -29,11 +31,15 @@ public class MtdWaterTermController {
         this.watertermService = watertermService;
     }
 
-    @PostMapping(value = "/dashboard/TermCount", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/dashboard/InstallCount", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<Long> termCount() throws Exception{
+    public Map<String, Integer> termCount() throws Exception{
+
+        Map<String, Integer> map = new HashMap<>();
         List<Long> number = watertermService.getTotalCount();
-        return number;
+        int cnt = Math.toIntExact(number.get(0));
+        map.put("installCnt", cnt);
+        return map;
     }
 
 }
