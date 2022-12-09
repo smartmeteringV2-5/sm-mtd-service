@@ -1,9 +1,8 @@
 package com.kspia.mtdservice.repository.impl;
 
-import com.kspia.mtdservice.dto.StatusCheckDto;
+import com.kspia.mtdservice.dto.SearchListDto;
 import com.kspia.mtdservice.entity.QConsumerInstallInfo;
 import com.kspia.mtdservice.repository.StatusCheckRepository;
-import com.kspia.mtdservice.repository.WatertermRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
@@ -38,7 +37,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
     }
 
     @Override
-    public List<StatusCheckDto> statusCheckByMetering() {
+    public List<SearchListDto> statusCheckByMetering() {
         return null;
     }
 }
