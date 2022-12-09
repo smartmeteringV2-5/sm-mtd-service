@@ -29,9 +29,9 @@ public class MtdWaterTermController {
         this.watertermService = watertermService;
     }
 
-    @GetMapping(value = "/dashboard/TermCount", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/dashboard/TermCount", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<Long> TermCount() {
+    public List<Long> termCount() throws Exception{
         List<Long> number = watertermService.getTotalCount();
         return number;
     }
