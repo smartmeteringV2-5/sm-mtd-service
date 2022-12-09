@@ -52,7 +52,7 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     public MeterCount countByMeterStatus() {
         return jpaQueryFactory.select(Projections.bean(
                     MeterdailyDto.MeterCount.class,
-                    new CaseBuilder().when(meterdaily.meter_battery.in(0, 1, 2)).then(1L).otherwise(0L).sum().as("meterLowBatteryCnt"),
+                    new CaseBuilder().when(meterdaily.meter_battery.in(1, 2)).then(1L).otherwise(0L).sum().as("meterLowBatteryCnt"),
                     new CaseBuilder().when(meterdaily.meter_waterleak.in(0)).then(1L).otherwise(0L).sum().as("waterLeakCnt"),
                     new CaseBuilder().when(meterdaily.meter_overflow.eq(0)).then(1L).otherwise(0L).sum().as("overflowCnt")
                 )
