@@ -70,12 +70,12 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
             .from(meterdaily)
             .leftJoin(consumerModemInfo)
             .on(meterdaily.meterdailyId.modem_id.eq(consumerModemInfo.modem_id))
-            .where(getQuery(search.getOmissionType()))
+            .where(getQueryByEquipState(search.getOmissionType()))
             .fetch();
     }
 
-    private BooleanExpression getQuery(String type) {
-        switch (type) {
+    private BooleanExpression getQueryByEquipState(String equipState) {
+        switch (equipState) {
             case "modemLowBattery":
                 return meterdaily.modem_battery.in(0, 1);
             case "disConnect":
