@@ -43,16 +43,16 @@ public class MeterdailyDto {
     @Data
     @NoArgsConstructor
     public static class ModemCount {
-        private long modemLowBatteryCnt;
-        private long timeSyncCnt;
-        private long disconnectCnt;
+        private int modemLowBatteryCnt;
+        private int timeSyncCnt;
+        private int disconnectCnt;
     }
     
     @Data
     @NoArgsConstructor
     public static class MeterCount {
-        private long meterLowBatteryCnt;
-        private long overflowCnt;
-        private long waterLeakCnt;
+        private int meterLowBatteryCnt;
+        private int overflowCnt;
+        private int waterLeakCnt;
     }
 }
