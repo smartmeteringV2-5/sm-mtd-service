@@ -1,6 +1,7 @@
 package com.kspia.mtdservice.repository;
 
 import com.kspia.mtdservice.dto.SearchListDto;
+import com.kspia.mtdservice.dto.StatusCheckDto;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,10 @@ import java.util.List;
 @Repository
 @Service
 public interface StatusCheckRepository {
-    List<SearchListDto> statusCheckByMetering = ;
+    List<StatusCheckDto> statusCheckByMetering();
+}
 
-    List<SearchListDto> statusCheckByMetering();
+
+
+
 

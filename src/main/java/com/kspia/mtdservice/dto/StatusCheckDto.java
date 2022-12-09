@@ -21,7 +21,7 @@ import java.util.Date;
  */
 @Data
 @NoArgsConstructor
-public class StatusCheckkDto {
+public class StatusCheckDto {
     //번호
     //검침일
     private String check_day;

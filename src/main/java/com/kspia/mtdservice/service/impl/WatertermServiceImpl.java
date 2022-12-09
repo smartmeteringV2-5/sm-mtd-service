@@ -30,6 +30,7 @@ public class WatertermServiceImpl implements WatertermService {
 
     @Override
     public List<Long> getTotalCount() {
+
         return watertermRepository.countByTerm();
     }
 }
