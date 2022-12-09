@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
  * 개정이력
  * 2022-12-08 kkny3 : 최초 작성
  * 2022-12-08 kkny3 : MeterdailyDto, MeterdailyDto.ModemCount 작업
+ * 2022-12-09 kkny3 : 장치 상태별 지도 정보를 담기 위한 MeterdailyDto.EqupStateMap 생성
  */
 @Data
 @NoArgsConstructor
@@ -46,5 +47,16 @@ public class MeterdailyDto {
         private long modemLowBatteryCnt;
         private long timeSyncCnt;
         private long disconnectCnt;
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class EquipStateMap {
+        private String geoX;
+        private String geoY;
+        private String daumX;
+        private String daumY;
+        private String mngId;
+        private String waterUserType;
     }
 }
