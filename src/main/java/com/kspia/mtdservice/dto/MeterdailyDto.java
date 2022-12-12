@@ -28,17 +28,17 @@ public class MeterdailyDto {
     private Date metering_date;
     private BigDecimal new_value;
     private BigDecimal daily_usage;
-    private Integer meter_backflow;
-    private Integer meter_battery;
-    private Integer meter_overflow;
-    private Integer meter_waterleak;
+    private String meter_backflow;
+    private String meter_battery;
+    private String meter_overflow;
+    private String meter_waterleak;
     private String  modem_rssi;
-    private BigDecimal modem_connect;
-    private Integer time_sync;
+    private String modem_connect;
+    private String time_sync;
     private String daily_tag;
     private Date insert_date;
     private Date update_date;
-    private BigDecimal modem_battery;
+    private String modem_battery;
 
     @Data
     @NoArgsConstructor

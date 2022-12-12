@@ -51,10 +51,10 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         consumerInstallInfo.wateruser_state.as("waterUserState"),
                         meterdaily.new_value.as("new_value"),
                         new CaseBuilder().when(meterdaily.meter_backflow.eq("0")).then("정상").otherwise("역류").as("backflow"),
-                        new CaseBuilder().when(meterdaily.meter_battery.eq("1,2")).then("저전압").otherwise("정상").as("meterBattery"),
+                        new CaseBuilder().when(meterdaily.meter_battery.in("1,2")).then("저전압").otherwise("정상").as("meterBattery"),
                         new CaseBuilder().when(meterdaily.meter_overflow.eq("0")).then("정상").otherwise("과부화").as("overflow"),
                         new CaseBuilder().when(meterdaily.meter_waterleak.eq("0")).then("정상").otherwise("누수").as("waterleak"),
-                        new CaseBuilder().when(meterdaily.modem_battery.eq("0,1")).then("저전압").otherwise("정상").as("modemBattery"),
+                        new CaseBuilder().when(meterdaily.modem_battery.in("0,1")).then("저전압").otherwise("정상").as("modemBattery"),
                         new CaseBuilder().when(meterdaily.modem_connect.eq("0")).then("정상").otherwise("통신불량").as("disconnected"),
                         new CaseBuilder().when(meterdaily.time_sync.eq("1")).then("정상").otherwise("오ㄷ").as("timeSync"),
                         meterdaily.modem_rssi.as("modem_rssi"),
@@ -63,32 +63,15 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                 .from(consumerInstallInfo)
                 .join(meterdaily)
                 .on(consumerInstallInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))
-                .where(getPredicates(sl))
+                .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getDailyDate()),
+                        eqDongNm(sl.getDongNm()), eqDividarea(sl.getDividarea()), eqMngId(sl.getMngId()),
+                        eqWateruserName(sl.getWateruserName()), eqNewAddress(sl.getNewAddress()),
+                        eqWateruserState(sl.getWateruserState()), eqMeterBackflow(sl.getMeter_backflow()),
+                        eqMeterBattery(sl.getMeter_battery()), eqMeterOverflow(sl.getMeter_overflow()),
+                        eqMeterWaterleak(sl.getMeter_waterleak()), eqModemRssi(sl.getModem_rssi()), eqMdoemConnect(sl.getModem_connect()),
+                        eqTimeSync(sl.getTime_sync()), eqModemBattery(sl.getModem_battery()), eqWateruserGauge(sl.getWateruserGauge()))
                 .fetch();
     }
-
-    @NotNull
-    private Predicate[] getPredicates(SearchListDto sl) {
-        return new Predicate[]{eqAreaId(sl.getAreaId()),
-                eqCheckDay(sl.getCheckDay()),
-                eqDailyDate(sl.getDailyDate()),
-                eqDongNm(sl.getDongNm()),
-                eqDividarea(sl.getDividarea()),
-                eqMngId(sl.getMngId()),
-                eqWateruserName(sl.getWateruserName()),
-                eqNewAddress(sl.getNewAddress()),
-                eqWateruserState(sl.getWateruserState()),
-                eqMeterBackflow(sl.getMeter_backflow()),
-                eqMeterBattery(sl.getMeter_battery()),
-                eqMeterOverflow(sl.getMeter_overflow()),
-                eqMeterWaterleak(sl.getMeter_waterleak()),
-                eqModemRssi(sl.getModem_rssi()),
-                eqMdoemConnect(sl.getModem_connect()),
-                eqTimeSync(sl.getTime_sync()),
-                eqModemBattery(sl.getModem_battery()),
-                eqWateruserGauge(sl.getWateruserGauge())};
-    }
-
     private BooleanExpression eqAreaId(String areaId) {
         if (areaId == null) {
             return null;
