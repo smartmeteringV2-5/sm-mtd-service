@@ -4,6 +4,8 @@ import com.kspia.mtdservice.dto.SearchListDto;
 import com.kspia.mtdservice.dto.StatusCheckDto;
 import com.kspia.mtdservice.repository.StatusCheckRepository;
 import com.kspia.mtdservice.service.StatusCheckService;
+import com.kspia.mtdservice.vo.UsagehistoryVO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -22,16 +24,14 @@ import java.util.List;
  * 2022.12. 09 jung : 최초작성
  * 2022.12. 09 jung : 실시간 현황 조회 작업
  */
+@RequiredArgsConstructor
 @Service
 public class StatusCheckServiceImpl implements StatusCheckService {
     private final StatusCheckRepository statusCheckRepository;
 
-    public StatusCheckServiceImpl(StatusCheckRepository statusCheckRepository) {
-        this.statusCheckRepository = statusCheckRepository;
-    }
-
     @Override
-    public List<StatusCheckDto> getSearch(SearchListDto sl) {
-        return statusCheckRepository.statusCheckByMetering(sl);
+    public List<StatusCheckDto> getSearch(UsagehistoryVO search) {
+        List<StatusCheckDto> statusCheckDtos = statusCheckRepository.statusCheckByMetering(search.convertToSearchListDto());
+        return null;
     }
 }
