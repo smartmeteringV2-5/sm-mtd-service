@@ -25,38 +25,39 @@ import java.util.Date;
 public class StatusCheckDto {
     //번호
     //검침일
-    private String check_day;
+    private String checkDay;
     //고객번호
     private String mngId;
     //성명
-    private String wateruser_name;
+    private String consumerName;
     //도로명주소
-    private String new_address;
+    private String newAddress;
     //수용가 번호
-    private String wateruser_id;
+    private String waterUserId;
     //가구 형태
-    private String wateruser_indust;
+    private String waterUserIndust;
 // meterid 계랑기번호
+    private String meterId;
     //구경
-    private String wateruser_gauge;
+    private String consumerCaliber;
     //지침
     private BigDecimal metering_value;
     //온도
-    private BigDecimal metering_temp;
+    private BigDecimal meteringTemp;
     //계랑기 상태
-    private String meter_backflow; //역류
-    private Integer meter_battery; //배터리
-    private Integer meter_overflow; //과부화
-    private Integer meter_waterleak; //누수
+    private String backflow; //역류
+    private String meterBattery; //배터리
+    private String overflow; //과부화
+    private String waterleak; //누수
     //단말기 상태
     private String modem_rssi;
-    private BigDecimal modem_connect; //결선불량
-    private Integer time_sync;
-    private BigDecimal modem_battery;
+    private BigDecimal disconnected; //결선불량
+    private Integer timeSync;
+    private BigDecimal modemBattery;
     //검침 일시
     private Date metering_date;
     //수신 일시
     private Date receiving_date;
     //급수전 구분
-    private String wateruser_state;
+    private String waterUserState;
 }
