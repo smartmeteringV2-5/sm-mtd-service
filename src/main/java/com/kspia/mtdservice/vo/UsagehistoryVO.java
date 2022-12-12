@@ -30,6 +30,18 @@ public class UsagehistoryVO {
 	public SearchListDto convertToSearchListDto() {
 		SearchListDto searchListDto = new SearchListDto();
 		searchListDto.setDongNm(this.dongId);
+		searchListDto.setDividarea(this.bunguId);
+		searchListDto.setWateruserName(this.consumerName);
+		searchListDto.setWateruserState(this.consumerState);
+		searchListDto.setMeter_backflow(this.meteringSignalStatus);
+		searchListDto.setMeter_battery(this.meteringSignalStatus);
+		searchListDto.setMeter_overflow(this.meteringSignalStatus);
+		searchListDto.setMeter_waterleak(this.meteringSignalStatus);
+		searchListDto.setModem_rssi(this.modemSignalStatus);
+		searchListDto.setModem_battery(this.modemSignalStatus);
+		searchListDto.setModem_connect(this.modemSignalStatus);
+		searchListDto.setTime_sync(this.modemSignalStatus);
+		searchListDto.setWateruserState(this.consumerState);
 		return null;
 	}
 }

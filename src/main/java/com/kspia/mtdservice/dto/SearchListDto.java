@@ -43,15 +43,15 @@ public class SearchListDto {
     //급수전 구분
     private String wateruserState;
     //계랑기 상태
-    private Integer meter_backflow; //역류
-    private Integer meter_battery; //배터리
-    private Integer meter_overflow; //과부화
-    private Integer meter_waterleak; //누수
+    private String meter_backflow; //역류
+    private String meter_battery; //배터리
+    private String meter_overflow; //과부화
+    private String meter_waterleak; //누수
     //단말기 상태
     private String modem_rssi;
-    private BigDecimal modem_connect; //결선불량
-    private Integer time_sync;
-    private BigDecimal modem_battery;
+    private String modem_connect; //결선불량
+    private String time_sync;
+    private String modem_battery;
     //구경
     private String wateruserGauge;
 }
