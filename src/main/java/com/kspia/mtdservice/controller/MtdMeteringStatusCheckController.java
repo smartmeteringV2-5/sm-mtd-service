@@ -32,7 +32,7 @@ public class MtdMeteringStatusCheckController {
     }
 
 
-    @PostMapping(value = "/smartmeter/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/usageHistory/smartmeter/list/page", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<StatusCheckDto> getSearch(@RequestBody SearchListDto sl) throws Exception{
         List<StatusCheckDto> statusCheckList = statusCheckService.getSearch(sl);
