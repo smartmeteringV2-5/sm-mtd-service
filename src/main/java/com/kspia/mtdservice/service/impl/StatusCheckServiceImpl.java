@@ -31,7 +31,6 @@ public class StatusCheckServiceImpl implements StatusCheckService {
 
     @Override
     public List<StatusCheckDto> getSearch(UsagehistoryVO search) {
-        List<StatusCheckDto> statusCheckDtos = statusCheckRepository.statusCheckByMetering(search.convertToSearchListDto());
-        return null;
+        return statusCheckRepository.statusCheckByMetering(search.convertToSearchListDto());
     }
 }

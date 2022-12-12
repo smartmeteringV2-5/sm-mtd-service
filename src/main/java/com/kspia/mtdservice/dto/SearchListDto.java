@@ -54,8 +54,4 @@ public class SearchListDto {
     private BigDecimal modem_battery;
     //구경
     private String wateruserGauge;
-
-
-
-
 }

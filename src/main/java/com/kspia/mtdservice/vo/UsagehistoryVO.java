@@ -28,6 +28,8 @@ public class UsagehistoryVO {
 	private String modemRssiCode;
 
 	public SearchListDto convertToSearchListDto() {
+		SearchListDto searchListDto = new SearchListDto();
+		searchListDto.setDongNm(this.dongId);
 		return null;
 	}
 }

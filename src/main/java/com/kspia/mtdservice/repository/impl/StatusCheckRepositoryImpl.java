@@ -42,7 +42,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
     public List<StatusCheckDto> statusCheckByMetering(SearchListDto sl) {
         return jpaQueryFactory.select(Projections.fields(StatusCheckDto.class,
                         consumerInstallInfo.check_day.as("check_day"),
-                        consumerInstallInfo.mng_id.as("mng_id"),
+                        consumerInstallInfo.mng_id.as("mngId"),
                         consumerInstallInfo.wateruser_name.as("wateruser_name"),
                         consumerInstallInfo.new_address.as("new_address"),
                         consumerInstallInfo.wateruser_id.as("wateruser_id"),

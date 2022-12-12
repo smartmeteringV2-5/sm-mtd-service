@@ -27,7 +27,7 @@ public class StatusCheckDto {
     //검침일
     private String check_day;
     //고객번호
-    private String mng_id;
+    private String mngId;
     //성명
     private String wateruser_name;
     //도로명주소
@@ -44,7 +44,7 @@ public class StatusCheckDto {
     //온도
     private BigDecimal metering_temp;
     //계랑기 상태
-    private Integer meter_backflow; //역류
+    private String meter_backflow; //역류
     private Integer meter_battery; //배터리
     private Integer meter_overflow; //과부화
     private Integer meter_waterleak; //누수
@@ -59,7 +59,4 @@ public class StatusCheckDto {
     private Date receiving_date;
     //급수전 구분
     private String wateruser_state;
-
-
-
 }
