@@ -4,13 +4,11 @@ import com.kspia.mtdservice.dto.SearchListDto;
 import com.kspia.mtdservice.dto.StatusCheckDto;
 import com.kspia.mtdservice.entity.QConsumerInstallInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
-import com.kspia.mtdservice.entity.QMeterinfo;
 import com.kspia.mtdservice.repository.StatusCheckRepository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -40,7 +38,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
     QConsumerInstallInfo consumerInstallInfo = QConsumerInstallInfo.consumerInstallInfo;
     QMeterdaily meterdaily = QMeterdaily.meterdaily;
 
-
+//실시간 현황 조회 검색 리스트
     @Override
     public List<StatusCheckDto> statusCheckByMetering(SearchListDto sl) {
 
@@ -57,7 +55,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                 ))
                 .from(consumerInstallInfo)
                 .join(meterdaily).on(consumerInstallInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))
-                .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()),eqMeteringDate(sl.getMeteringDate()),
+                .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()),eqDailyDate(sl.getDailyDate()),
                         eqDongNm(sl.getDongNm()),eqDividarea(sl.getDividarea()),eqMngId(sl.getMngId()),
                         eqWateruserName(sl.getWateruserName()),eqNewAddress(sl.getNewAddress()),
                         eqWateruserState(sl.getWateruserState()),eqMeterBackflow(sl.getMeter_backflow()),
@@ -81,11 +79,11 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         return consumerInstallInfo.check_day.eq(checkDay);
     }
 
-    private BooleanExpression eqMeteringDate(Date meteringDate){
-        if(meteringDate == null){
+    private BooleanExpression eqDailyDate(Date dayilyDate){
+        if(dayilyDate == null){
             return null;
         }
-        return meterdaily.metering_date.eq(meteringDate);
+        return meterdaily.meterdailyId.daily_date.eq(dayilyDate);
     }
 
     private BooleanExpression eqDongNm(String dongNm){

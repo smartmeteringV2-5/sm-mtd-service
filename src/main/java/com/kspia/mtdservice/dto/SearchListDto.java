@@ -23,7 +23,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class SearchListDto {
     //일자
-    private Date meteringDate;
+    private Date dailyDate;
     //사업소
     private String areaId;
     //행정동
