@@ -5,9 +5,11 @@ import com.kspia.mtdservice.dto.StatusCheckDto;
 import com.kspia.mtdservice.entity.QConsumerInstallInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
 import com.kspia.mtdservice.repository.StatusCheckRepository;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -60,14 +62,30 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                 .from(consumerInstallInfo)
                 .join(meterdaily)
                 .on(consumerInstallInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))
-                .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getDailyDate()),
-                        eqDongNm(sl.getDongNm()), eqDividarea(sl.getDividarea()), eqMngId(sl.getMngId()),
-                        eqWateruserName(sl.getWateruserName()), eqNewAddress(sl.getNewAddress()),
-                        eqWateruserState(sl.getWateruserState()), eqMeterBackflow(sl.getMeter_backflow()),
-                        eqMeterBattery(sl.getMeter_battery()), eqMeterOverflow(sl.getMeter_overflow()),
-                        eqMeterWaterleak(sl.getMeter_waterleak()), eqModemRssi(sl.getModem_rssi()), eqMdoemConnect(sl.getModem_connect()),
-                        eqTimeSync(sl.getTime_sync()), eqModemBattery(sl.getModem_battery()), eqWateruserGauge(sl.getWateruserGauge()))
+                .where(getPredicates(sl))
                 .fetch();
+    }
+
+    @NotNull
+    private Predicate[] getPredicates(SearchListDto sl) {
+        return new Predicate[]{eqAreaId(sl.getAreaId()),
+                eqCheckDay(sl.getCheckDay()),
+                eqDailyDate(sl.getDailyDate()),
+                eqDongNm(sl.getDongNm()),
+                eqDividarea(sl.getDividarea()),
+                eqMngId(sl.getMngId()),
+                eqWateruserName(sl.getWateruserName()),
+                eqNewAddress(sl.getNewAddress()),
+                eqWateruserState(sl.getWateruserState()),
+                eqMeterBackflow(sl.getMeter_backflow()),
+                eqMeterBattery(sl.getMeter_battery()),
+                eqMeterOverflow(sl.getMeter_overflow()),
+                eqMeterWaterleak(sl.getMeter_waterleak()),
+                eqModemRssi(sl.getModem_rssi()),
+                eqMdoemConnect(sl.getModem_connect()),
+                eqTimeSync(sl.getTime_sync()),
+                eqModemBattery(sl.getModem_battery()),
+                eqWateruserGauge(sl.getWateruserGauge())};
     }
 
     private BooleanExpression eqAreaId(String areaId) {
