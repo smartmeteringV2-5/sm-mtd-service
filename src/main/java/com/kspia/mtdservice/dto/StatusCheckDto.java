@@ -2,6 +2,7 @@ package com.kspia.mtdservice.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -37,7 +38,7 @@ public class StatusCheckDto {
     private String wateruser_indust;
 // meterid 계랑기번호
     //구경
-    private Integer wateruser_gauge;
+    private String wateruser_gauge;
     //지침
     private BigDecimal metering_value;
     //온도

@@ -6,6 +6,7 @@ import com.kspia.mtdservice.repository.StatusCheckRepository;
 import com.kspia.mtdservice.service.StatusCheckService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +32,6 @@ public class StatusCheckServiceImpl implements StatusCheckService {
 
     @Override
     public List<StatusCheckDto> getSearch(SearchListDto sl) {
-        return null;
+        return statusCheckRepository.statusCheckByMetering(sl);
     }
 }

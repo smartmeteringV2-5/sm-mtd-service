@@ -24,7 +24,7 @@ import java.util.List;
 @Repository
 @Service
 public interface StatusCheckRepository {
-    List<StatusCheckDto> statusCheckByMetering();
+    List<StatusCheckDto> statusCheckByMetering(SearchListDto sl);
 }
 
 
