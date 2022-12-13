@@ -6,6 +6,7 @@ import com.kspia.mtdservice.repository.MeterdailyRepository;
 import com.kspia.mtdservice.vo.RequestEquipState;
 import com.kspia.mtdservice.vo.ResponseDashboardMap;
 import com.kspia.mtdservice.vo.ResponseModemCount;
+import com.kspia.mtdservice.vo.ResponseReceivingStateCount;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Repository;
  * 2022-12-08 kkny3 : 최초 작성
  * 2022-12-08 kkny3 : countByModemStatus 작업
  * 2022-12-09 kkny3 : findMapListByEquipState 작업
+ * 2022-12-13 kkny3 : countByReceivingState 작업
  */
 @Repository
 public class MeterdailyRepositoryImpl implements MeterdailyRepository {
@@ -75,6 +77,11 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
             .on(meterdaily.meterdailyId.modem_id.eq(consumerModemInfo.modem_id))
             .where(getQueryByEquipState(search.getOmissionType()), goeDailyDate())
             .fetch();
+    }
+
+    @Override
+    public ResponseReceivingStateCount countByReceivingState() {
+        return null;
     }
 
     private BooleanExpression getQueryByEquipState(String equipState) {

@@ -3,6 +3,7 @@ package com.kspia.mtdservice.repository;
 import com.kspia.mtdservice.vo.RequestEquipState;
 import com.kspia.mtdservice.vo.ResponseDashboardMap;
 import com.kspia.mtdservice.vo.ResponseModemCount;
+import com.kspia.mtdservice.vo.ResponseReceivingStateCount;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -19,10 +20,13 @@ import org.springframework.stereotype.Repository;
  * 2022-12-08 kkny3 : 최초 작성
  * 2022-12-08 kkny3 : countByModemStatus 작업
  * 2022-12-09 kkny3 : findMapListByEquipState 작업
+ * 2022-12-13 kkny3 : countByReceivingState 작업
  */
 @Repository
 public interface MeterdailyRepository {
     ResponseModemCount countByModemStatus();
 
     List<ResponseDashboardMap> findMapListByEquipState(RequestEquipState search);
+
+    ResponseReceivingStateCount countByReceivingState();
 }
