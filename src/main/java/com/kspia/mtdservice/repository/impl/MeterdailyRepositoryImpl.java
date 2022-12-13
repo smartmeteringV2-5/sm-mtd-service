@@ -47,9 +47,9 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     public ModemCount countByModemStatus() {
         return jpaQueryFactory.select(Projections.bean(
                     MeterdailyDto.ModemCount.class,
-                    new CaseBuilder().when(meterdaily.modem_battery.in(0, 1)).then(1L).otherwise(0L).sum().as("modemLowBatteryCnt"),
-                    new CaseBuilder().when(meterdaily.time_sync.eq(0)).then(1L).otherwise(0L).sum().as("timeSyncCnt"),
-                    meterdaily.modem_connect.sum().longValue().as("disconnectCnt")
+                    new CaseBuilder().when(meterdaily.modem_battery.in(0, 1)).then(1).otherwise(0).sum().as("modemLowBatteryCnt"),
+                    new CaseBuilder().when(meterdaily.time_sync.eq(0)).then(1).otherwise(0).sum().as("timeSyncCnt"),
+                    meterdaily.modem_connect.sum().as("disconnectCnt")
                 )
             )
             .from(meterdaily)
