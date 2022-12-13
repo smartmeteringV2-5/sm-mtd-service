@@ -1,7 +1,11 @@
 package com.kspia.mtdservice.service;
 
+import com.kspia.mtdservice.dto.MeterdailyDto;
 import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
+import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
+
+import java.util.List;
 
 /**
  * @since 2022-12-08
@@ -19,4 +23,5 @@ import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 public interface DashboardService {
     ModemCount getModemCount();
     MeterCount getMeterCount();
+    List<UsageWeekly> getDalilyUsageWeekly();
 }

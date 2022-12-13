@@ -1,9 +1,14 @@
 package com.kspia.mtdservice.service.impl;
 
+import com.kspia.mtdservice.dto.MeterdailyDto;
 import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
+import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
 import com.kspia.mtdservice.repository.MeterdailyRepository;
 import com.kspia.mtdservice.service.DashboardService;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,5 +39,9 @@ public class DashboardServiceImpl implements DashboardService {
     
     public MeterCount getMeterCount() {
         return meterdailyRepository.countByMeterStatus();
+      }
+    
+    public List<UsageWeekly> getDalilyUsageWeekly() {
+        return meterdailyRepository.findByDailyDateAndDailyUsage();
       }
 }

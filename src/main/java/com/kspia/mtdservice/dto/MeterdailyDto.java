@@ -56,4 +56,11 @@ public class MeterdailyDto {
         private int overflowCnt;
         private int waterLeakCnt;
     }
+    
+    @Data
+    @NoArgsConstructor
+    public static class UsageWeekly {
+        private Date daily_date;
+        private long daily_usage;
+    }
 }

@@ -1,8 +1,12 @@
 package com.kspia.mtdservice.controller;
 
+import com.kspia.mtdservice.dto.MeterdailyDto;
 import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
+import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
 import com.kspia.mtdservice.service.DashboardService;
+
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,5 +49,11 @@ public class DashboardController {
     @ResponseStatus(HttpStatus.OK)
     public MeterCount getMeterCount() throws Exception {
         return service.getMeterCount();
+    }
+    
+    @PostMapping(value = "/dashboard/waterUsage/graph/weekly", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<UsageWeekly> getDalilyUsageWeekly() throws Exception {
+        return service.getDalilyUsageWeekly();
     }
 }

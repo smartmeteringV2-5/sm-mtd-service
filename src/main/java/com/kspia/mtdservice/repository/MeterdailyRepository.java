@@ -3,6 +3,8 @@ package com.kspia.mtdservice.repository;
 import com.kspia.mtdservice.dto.MeterdailyDto;
 import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
+import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
+
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -24,7 +26,7 @@ import org.springframework.stereotype.Repository;
 public interface MeterdailyRepository {
     ModemCount countByModemStatus();
     MeterCount countByMeterStatus();
-    List<MeterdailyDto> findAllByDailyDateAndDailyUsage();
+    List<UsageWeekly> findByDailyDateAndDailyUsage();
 }
 
 

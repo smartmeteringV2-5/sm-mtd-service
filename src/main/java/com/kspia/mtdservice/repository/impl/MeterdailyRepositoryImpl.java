@@ -3,6 +3,7 @@ package com.kspia.mtdservice.repository.impl;
 import com.kspia.mtdservice.dto.MeterdailyDto;
 import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
+import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
 import com.kspia.mtdservice.entity.QMeterdaily;
 import com.kspia.mtdservice.entity.QMtdWaterLeakExamWateruser;
 import com.kspia.mtdservice.repository.MeterdailyRepository;
@@ -68,13 +69,13 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     }
     
     @Override
-    public List<MeterdailyDto> findAllByDailyDateAndDailyUsage() {
-        LocalDateTime localDate = LocalDateTime.now();
-        LocalDateTime minusDate = LocalDateTime.now().minusDays(7);
+    public List<UsageWeekly> findByDailyDateAndDailyUsage() {
+        LocalDateTime localDate = LocalDateTime.now().plusHours(9);
+        LocalDateTime minusDate = localDate.minusDays(7);
         Date date = java.sql.Timestamp.valueOf(localDate);
         Date minusdate = java.sql.Timestamp.valueOf(minusDate);
     	return jpaQueryFactory.select(Projections.bean(
-                MeterdailyDto.class,
+                MeterdailyDto.UsageWeekly.class,
                 meterdaily.meterdailyId.daily_date.as("daily_date"),
                 meterdaily.daily_usage.sum().longValue().as("daily_usage")
                 )
