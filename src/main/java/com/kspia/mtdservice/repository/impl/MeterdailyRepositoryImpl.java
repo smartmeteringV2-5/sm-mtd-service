@@ -45,7 +45,6 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
 
     @Override
     public ModemCount countByModemStatus() {
-        Date nowDate = Timestamp.valueOf(LocalDate.now().atStartOfDay());
 
         return jpaQueryFactory.select(Projections.bean(
                     MeterdailyDto.ModemCount.class,
@@ -55,7 +54,7 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
                 )
             )
             .from(meterdaily)
-            .where(meterdaily.meterdailyId.daily_date.goe(nowDate))
+            .where(goeDailyDate())
             .fetchOne();
     }
 
@@ -75,7 +74,7 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
             .from(meterdaily)
             .leftJoin(consumerModemInfo)
             .on(meterdaily.meterdailyId.modem_id.eq(consumerModemInfo.modem_id))
-            .where(getQueryByEquipState(search.getOmissionType()))
+            .where(getQueryByEquipState(search.getOmissionType()), goeDailyDate())
             .fetch();
     }
 
@@ -96,5 +95,11 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
         }
         return meterdaily.modem_battery.in(0, 1);
 //        return throw new DataNotFoundException("선택된 항목이 없습니다.");
+    }
+
+    private BooleanExpression goeDailyDate() {
+        Date nowDate = Timestamp.valueOf(LocalDate.now().atStartOfDay());
+
+        return meterdaily.meterdailyId.daily_date.goe(nowDate);
     }
 }
