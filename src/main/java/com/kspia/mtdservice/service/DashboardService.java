@@ -6,6 +6,10 @@ import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
 
 import java.util.List;
+import com.kspia.mtdservice.vo.RequestEquipState;
+import com.kspia.mtdservice.vo.ResponseModemCount;
+import com.kspia.mtdservice.vo.ResponseReceivingStateCount;
+import java.util.Map;
 
 /**
  * @since 2022-12-08
@@ -19,9 +23,15 @@ import java.util.List;
  * 개정이력
  * 2022-12-08 kkny3 : 최초 작성
  * 2022-12-08 kkny3 : getModemCount 작업
+ * 2022-12-09 kkny3 : getEquipStateMap 작업
+ * 2022-12-13 kkny3 : getReceivingStateCount 작업
  */
 public interface DashboardService {
-    ModemCount getModemCount();
     MeterCount getMeterCount();
     List<UsageWeekly> getDalilyUsageWeekly();
+    ResponseModemCount getModemCount();
+
+    Map<String, Object> getEquipStateMap(RequestEquipState search);
+
+    ResponseReceivingStateCount getReceivingStateCount();
 }

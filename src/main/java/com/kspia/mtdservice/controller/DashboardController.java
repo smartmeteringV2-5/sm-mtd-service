@@ -7,11 +7,15 @@ import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
 import com.kspia.mtdservice.service.DashboardService;
 
 import java.util.List;
+import com.kspia.mtdservice.service.DashboardService;
+import com.kspia.mtdservice.vo.RequestEquipState;
+import com.kspia.mtdservice.vo.ResponseModemCount;
+import com.kspia.mtdservice.vo.ResponseReceivingStateCount;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
  * 개정이력
  * 2022-12-08 kkny3 : 최초 작성
  * 2022-12-08 kkny3 : getModemCount 작업
+ * 2022-12-09 kkny3 : getEquipStateMap 작업
+ * 2022-12-13 kkny3 : getReceivingStateCount 작업
  */
 @RestController
 @RequestMapping("/sm-mtd-service")
@@ -41,7 +47,7 @@ public class DashboardController {
 
     @PostMapping(value = "/dashboard/ModemCount", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ModemCount getModemCount() throws Exception {
+    public ResponseModemCount getModemCount() throws Exception {
         return service.getModemCount();
     }
     
@@ -55,5 +61,17 @@ public class DashboardController {
     @ResponseStatus(HttpStatus.OK)
     public List<UsageWeekly> getDalilyUsageWeekly() throws Exception {
         return service.getDalilyUsageWeekly();
+    }
+    
+    @PostMapping(value = "/dashboard/equipStateMap", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, Object> getEquipStateMap(@RequestBody RequestEquipState search) {
+        return service.getEquipStateMap(search);
+    }
+
+    @PostMapping(value = "/dashboard/ReceivingStateCount", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseReceivingStateCount getReceivingStateCount() throws Exception {
+        return service.getReceivingStateCount();
     }
 }
