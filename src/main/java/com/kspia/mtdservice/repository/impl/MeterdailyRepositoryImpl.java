@@ -14,6 +14,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -70,14 +71,14 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     
     @Override
     public List<UsageWeekly> findByDailyDateAndDailyUsage() {
-        LocalDateTime localDate = LocalDateTime.now().plusHours(9);
+    	LocalDateTime localDate = LocalDateTime.now().plusHours(9);
         LocalDateTime minusDate = localDate.minusDays(7);
         Date date = java.sql.Timestamp.valueOf(localDate);
         Date minusdate = java.sql.Timestamp.valueOf(minusDate);
     	return jpaQueryFactory.select(Projections.bean(
                 MeterdailyDto.UsageWeekly.class,
                 meterdaily.meterdailyId.daily_date.as("daily_date"),
-                meterdaily.daily_usage.sum().longValue().as("daily_usage")
+                meterdaily.daily_usage.sum().doubleValue().as("daily_usage")
                 )
     		)
     		.from(meterdaily)
