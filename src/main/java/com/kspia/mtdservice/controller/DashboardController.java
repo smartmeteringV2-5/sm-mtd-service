@@ -4,6 +4,7 @@ import com.kspia.mtdservice.dto.MeterdailyDto.EquipStateMap;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.service.DashboardService;
 import com.kspia.mtdservice.vo.RequestSearch;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class DashboardController {
 
     @PostMapping(value = "/dashboard/equipStateMap", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<EquipStateMap> getEquipStateMap(@RequestBody RequestSearch search) throws Exception {
+    public Map<String, Object> getEquipStateMap(@RequestBody RequestSearch search) {
         return service.getEquipStateMap(search);
     }
 }

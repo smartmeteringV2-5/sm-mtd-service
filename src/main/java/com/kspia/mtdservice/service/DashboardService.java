@@ -1,9 +1,8 @@
 package com.kspia.mtdservice.service;
 
-import com.kspia.mtdservice.dto.MeterdailyDto.EquipStateMap;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.vo.RequestSearch;
-import java.util.List;
+import java.util.Map;
 
 /**
  * @since 2022-12-08
@@ -22,5 +21,5 @@ import java.util.List;
 public interface DashboardService {
     ModemCount getModemCount();
 
-    List<EquipStateMap> getEquipStateMap(RequestSearch search);
+    Map<String, Object> getEquipStateMap(RequestSearch search);
 }

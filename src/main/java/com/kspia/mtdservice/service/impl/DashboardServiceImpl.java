@@ -1,11 +1,11 @@
 package com.kspia.mtdservice.service.impl;
 
-import com.kspia.mtdservice.dto.MeterdailyDto.EquipStateMap;
 import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.repository.MeterdailyRepository;
 import com.kspia.mtdservice.service.DashboardService;
 import com.kspia.mtdservice.vo.RequestSearch;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 /**
@@ -37,7 +37,9 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public List<EquipStateMap> getEquipStateMap(RequestSearch search) {
-        return meterdailyRepository.findMapListByEquipState(search);
+    public Map<String, Object> getEquipStateMap(RequestSearch search) {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("totalResult", meterdailyRepository.findMapListByEquipState(search));
+        return resultMap;
     }
 }
