@@ -1,13 +1,9 @@
 package com.kspia.mtdservice.controller;
 
-import com.kspia.mtdservice.dto.MeterdailyDto.EquipStateMap;
-import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.service.DashboardService;
-import com.kspia.mtdservice.vo.RequestSearch;
-import java.util.HashMap;
-import java.util.List;
+import com.kspia.mtdservice.vo.RequestEquipState;
+import com.kspia.mtdservice.vo.ResponseModemCount;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,13 +38,13 @@ public class DashboardController {
 
     @PostMapping(value = "/dashboard/ModemCount", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ModemCount getModemCount() throws Exception {
+    public ResponseModemCount getModemCount() throws Exception {
         return service.getModemCount();
     }
 
     @PostMapping(value = "/dashboard/equipStateMap", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, Object> getEquipStateMap(@RequestBody RequestSearch search) {
+    public Map<String, Object> getEquipStateMap(@RequestBody RequestEquipState search) {
         return service.getEquipStateMap(search);
     }
 }

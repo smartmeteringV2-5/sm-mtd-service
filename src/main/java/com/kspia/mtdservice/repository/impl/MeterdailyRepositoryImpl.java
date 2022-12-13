@@ -1,12 +1,11 @@
 package com.kspia.mtdservice.repository.impl;
 
-import com.kspia.mtdservice.dto.MeterdailyDto;
-import com.kspia.mtdservice.dto.MeterdailyDto.EquipStateMap;
-import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
 import com.kspia.mtdservice.repository.MeterdailyRepository;
-import com.kspia.mtdservice.vo.RequestSearch;
+import com.kspia.mtdservice.vo.RequestEquipState;
+import com.kspia.mtdservice.vo.ResponseDashboardMap;
+import com.kspia.mtdservice.vo.ResponseModemCount;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
@@ -44,10 +43,10 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     }
 
     @Override
-    public ModemCount countByModemStatus() {
+    public ResponseModemCount countByModemStatus() {
 
         return jpaQueryFactory.select(Projections.bean(
-                    MeterdailyDto.ModemCount.class,
+                ResponseModemCount.class,
                     new CaseBuilder().when(meterdaily.modem_battery.in(0, 1)).then(1).otherwise(0).sum().as("modemLowBatteryCnt"),
                     new CaseBuilder().when(meterdaily.time_sync.eq(0)).then(1).otherwise(0).sum().as("timeSyncCnt"),
                     meterdaily.modem_connect.sum().intValue().as("disconnectCnt")
@@ -59,10 +58,10 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     }
 
     @Override
-    public List<EquipStateMap> findMapListByEquipState(RequestSearch search) {
+    public List<ResponseDashboardMap> findMapListByEquipState(RequestEquipState search) {
 
         return jpaQueryFactory.select(Projections.bean(
-                    MeterdailyDto.EquipStateMap.class,
+                ResponseDashboardMap.class,
                     consumerModemInfo.geo_x.as("geoX"),
                     consumerModemInfo.geo_y.as("geoY"),
                     consumerModemInfo.daum_x.as("daumX"),
