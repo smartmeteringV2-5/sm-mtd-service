@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
  * 개정이력
  * 2022-12-08 kkny3 : 최초 작성
  * 2022-12-08 kkny3 : MeterdailyDto, MeterdailyDto.ModemCount 작업
+ * 2022-12-08 MINHYE : MeterdailyDto.MeterCount 작업
  */
 @Data
 @NoArgsConstructor

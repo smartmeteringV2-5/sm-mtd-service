@@ -9,6 +9,12 @@ import com.kspia.mtdservice.repository.MeterdailyRepository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -59,5 +65,24 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
             )
             .from(meterdaily)
             .fetchOne();
+    }
+    
+    @Override
+    public List<MeterdailyDto> findAllByDailyDateAndDailyUsage() {
+        LocalDateTime localDate = LocalDateTime.now();
+        LocalDateTime minusDate = LocalDateTime.now().minusDays(7);
+        Date date = java.sql.Timestamp.valueOf(localDate);
+        Date minusdate = java.sql.Timestamp.valueOf(minusDate);
+    	return jpaQueryFactory.select(Projections.bean(
+                MeterdailyDto.class,
+                meterdaily.meterdailyId.daily_date.as("daily_date"),
+                meterdaily.daily_usage.sum().longValue().as("daily_usage")
+                )
+    		)
+    		.from(meterdaily)
+    		.where(meterdaily.meterdailyId.daily_date.between(minusdate, date))
+            .groupBy(meterdaily.meterdailyId.daily_date)
+            .orderBy(meterdaily.meterdailyId.daily_date.desc())
+            .fetch();      
     }
 }
