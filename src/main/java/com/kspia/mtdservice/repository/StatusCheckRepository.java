@@ -1,11 +1,11 @@
 package com.kspia.mtdservice.repository;
 
-import com.kspia.mtdservice.dto.SearchListDto;
 import com.kspia.mtdservice.dto.StatusCheckDto;
+import com.kspia.mtdservice.vo.RequestUsageHistoryVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 /**
@@ -24,7 +24,8 @@ import java.util.List;
 @Repository
 @Service
 public interface StatusCheckRepository {
-    List<StatusCheckDto> statusCheckByMetering(SearchListDto sl);
+    //실시간 현황 조회 검색 리스트
+    Page<StatusCheckDto> statusCheckByMetering(RequestUsageHistoryVO sl, Pageable pageable);
 }
 
 

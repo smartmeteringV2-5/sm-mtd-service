@@ -1,16 +1,17 @@
 package com.kspia.mtdservice.controller;
 
-import com.kspia.mtdservice.dto.SearchListDto;
 import com.kspia.mtdservice.dto.StatusCheckDto;
 import com.kspia.mtdservice.service.StatusCheckService;
-import com.kspia.mtdservice.vo.UsagehistoryVO;
+import com.kspia.mtdservice.vo.RequestUsageHistoryVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.time.LocalDate;
 
 /**
  * @since 2022. 12. 9
@@ -32,8 +33,9 @@ public class MtdMeteringStatusCheckController {
 
     @PostMapping(value = "/usageHistory/smartmeter/list/page", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<StatusCheckDto> getSearch(@RequestBody UsagehistoryVO search) throws Exception{
-        List<StatusCheckDto> statusCheckList = statusCheckService.getSearch(search);
+    public Page<StatusCheckDto> getSearch(@RequestBody RequestUsageHistoryVO search, Pageable pageable){
+        Page<StatusCheckDto> statusCheckList = statusCheckService.getSearch(search, pageable);
+        System.out.println(statusCheckList);
         return statusCheckList;
     }
 }

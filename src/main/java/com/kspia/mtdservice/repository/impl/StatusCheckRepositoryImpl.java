@@ -1,26 +1,28 @@
 package com.kspia.mtdservice.repository.impl;
 
-import com.kspia.mtdservice.dto.SearchListDto;
 import com.kspia.mtdservice.dto.StatusCheckDto;
 import com.kspia.mtdservice.entity.QConsumerInstallInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
 import com.kspia.mtdservice.repository.StatusCheckRepository;
-import com.querydsl.core.types.Expression;
+import com.kspia.mtdservice.vo.RequestUsageHistoryVO;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
 /**
  * @author jung
  * @Discript ---------------------------------------------------
- * 개요 : 실시간 현황 조회 repositoryImpl 생성
+ * 개요 : 실시간 현황 조회 repositoryImpl 생성,
  * ---------------------------------------------------
  * @EditHIstory 개정이력
  * 2022.12. 09 jung : 최초 작성
@@ -40,15 +42,16 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
 
     //실시간 현황 조회 검색 리스트
     @Override
-    public List<StatusCheckDto> statusCheckByMetering(SearchListDto sl) {
-        return jpaQueryFactory.select(Projections.fields(StatusCheckDto.class,
+    @NotNull
+    public Page<StatusCheckDto> statusCheckByMetering(RequestUsageHistoryVO sl, Pageable pageable) {
+        List<StatusCheckDto> results = jpaQueryFactory.select(Projections.fields(StatusCheckDto.class,
                         consumerInstallInfo.check_day.as("checkDay"),
                         consumerInstallInfo.mng_id.as("mngId"),
                         consumerInstallInfo.wateruser_name.as("consumerName"),
                         consumerInstallInfo.new_address.as("newAddress"),
                         consumerInstallInfo.wateruser_id.as("waterUserId"),
                         consumerInstallInfo.wateruser_indust.as("waterUserIndust"),
-                        consumerInstallInfo.wateruser_state.as("waterUserState"),
+                        consumerInstallInfo.wateruser_gauge.as("consumerCaliber"),
                         meterdaily.new_value.as("new_value"),
                         new CaseBuilder().when(meterdaily.meter_backflow.eq("0")).then("정상").otherwise("역류").as("backflow"),
                         new CaseBuilder().when(meterdaily.meter_battery.in("1,2")).then("저전압").otherwise("정상").as("meterBattery"),
@@ -56,22 +59,40 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         new CaseBuilder().when(meterdaily.meter_waterleak.eq("0")).then("정상").otherwise("누수").as("waterleak"),
                         new CaseBuilder().when(meterdaily.modem_battery.in("0,1")).then("저전압").otherwise("정상").as("modemBattery"),
                         new CaseBuilder().when(meterdaily.modem_connect.eq("0")).then("정상").otherwise("통신불량").as("disconnected"),
-                        new CaseBuilder().when(meterdaily.time_sync.eq("1")).then("정상").otherwise("오ㄷ").as("timeSync"),
-                        meterdaily.modem_rssi.as("modem_rssi"),
-                        meterdaily.metering_date.as("metering_date")
+                        new CaseBuilder().when(meterdaily.time_sync.eq("1")).then("정상").otherwise("오류").as("timeSync"),
+                        meterdaily.modem_rssi.as("modem_rssi"),meterdaily.metering_date.as("metering_date"),
+                        consumerInstallInfo.wateruser_state.as("waterUserState")
                 ))
                 .from(consumerInstallInfo)
                 .join(meterdaily)
                 .on(consumerInstallInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))
-                .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getDailyDate()),
-                        eqDongNm(sl.getDongNm()), eqDividarea(sl.getDividarea()), eqMngId(sl.getMngId()),
-                        eqWateruserName(sl.getWateruserName()), eqNewAddress(sl.getNewAddress()),
-                        eqWateruserState(sl.getWateruserState()), eqMeterBackflow(sl.getMeter_backflow()),
-                        eqMeterBattery(sl.getMeter_battery()), eqMeterOverflow(sl.getMeter_overflow()),
-                        eqMeterWaterleak(sl.getMeter_waterleak()), eqModemRssi(sl.getModem_rssi()), eqMdoemConnect(sl.getModem_connect()),
-                        eqTimeSync(sl.getTime_sync()), eqModemBattery(sl.getModem_battery()), eqWateruserGauge(sl.getWateruserGauge()))
+                .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getStandardDate()),
+                        eqDongNm(sl.getDongId()), eqBunguId(sl.getBunguId()), eqMngId(sl.getMngId()),
+                        eqWateruserName(sl.getConsumerName()), eqNewAddress(sl.getNewAddress()),
+                        eqWateruserState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
+                        eqMeterBattery(sl.getMeteringSignalStatus()), eqOverflow(sl.getModemSignalStatus()),
+                        eqTimeSync(sl.getModemSignalStatus()), eqModemBattery(sl.getModemSignalStatus()), eqConsumerCaliber(sl.getConsumerCaliber()))
+                //
+                .offset(pageable.getOffset()) /*offset*/
+                .limit(pageable.getPageSize())
                 .fetch();
+                //페이지 총 카운트 구하기
+                long total = jpaQueryFactory.select(consumerInstallInfo.count()).from(consumerInstallInfo)
+                        .join(meterdaily).on(consumerInstallInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))
+                        .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getStandardDate()),
+                                eqDongNm(sl.getDongId()), eqBunguId(sl.getBunguId()), eqMngId(sl.getMngId()),
+                                eqWateruserName(sl.getConsumerName()), eqNewAddress(sl.getNewAddress()),
+                                eqWateruserState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
+                                eqMeterBattery(sl.getMeteringSignalStatus()), eqOverflow(sl.getMeteringSignalStatus()),
+                                eqWaterleak(sl.getMeteringSignalStatus()),eqDisconnected(sl.getModemSignalStatus()),
+                                eqTimeSync(sl.getModemSignalStatus()), eqModemBattery(sl.getModemSignalStatus()), eqConsumerCaliber(sl.getConsumerCaliber()))
+                        .fetchOne();
+                System.out.println(total);
+
+        return new PageImpl<>(results, pageable, total);
     }
+
+
     private BooleanExpression eqAreaId(String areaId) {
         if (areaId == null) {
             return null;
@@ -86,11 +107,11 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         return consumerInstallInfo.check_day.eq(checkDay);
     }
 
-    private BooleanExpression eqDailyDate(Date dayilyDate) {
-        if (dayilyDate == null) {
+    private BooleanExpression eqDailyDate(Date dailyDate) {
+        if (dailyDate == null) {
             return null;
         }
-        return meterdaily.meterdailyId.daily_date.eq(dayilyDate);
+        return meterdaily.meterdailyId.daily_date.eq(dailyDate);
     }
 
     private BooleanExpression eqDongNm(String dongNm) {
@@ -100,11 +121,11 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         return consumerInstallInfo.dong_nm.eq(dongNm);
     }
 
-    private BooleanExpression eqDividarea(String dividarea) {
-        if (dividarea == null) {
+    private BooleanExpression eqBunguId(String bunguId) {
+        if (bunguId == null) {
             return null;
         }
-        return consumerInstallInfo.dividarea.eq(dividarea);
+        return consumerInstallInfo.dividarea.eq(bunguId);
     }
 
     private BooleanExpression eqMngId(String mngId) {
@@ -135,11 +156,11 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         return consumerInstallInfo.wateruser_state.eq(wateruserState);
     }
 
-    private BooleanExpression eqMeterBackflow(String meterBackflow) {
-        if (meterBackflow == null) {
+    private BooleanExpression eqBackflow(String backflow) {
+        if (backflow == null) {
             return null;
         }
-        return meterdaily.meter_backflow.eq((meterBackflow));
+        return meterdaily.meter_backflow.eq((backflow));
     }
 
     private BooleanExpression eqMeterBattery(String meterBattery) {
@@ -149,18 +170,18 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         return meterdaily.meter_battery.eq(meterBattery);
     }
 
-    private BooleanExpression eqMeterOverflow(String meterOverflow) {
-        if (meterOverflow == null) {
+    private BooleanExpression eqOverflow(String overflow) {
+        if (overflow == null) {
             return null;
         }
-        return meterdaily.meter_overflow.eq(meterOverflow);
+        return meterdaily.meter_overflow.eq(overflow);
     }
 
-    private BooleanExpression eqMeterWaterleak(String meterWaterleak) {
-        if (meterWaterleak == null) {
+    private BooleanExpression eqWaterleak(String waterleak) {
+        if (waterleak == null) {
             return null;
         }
-        return meterdaily.meter_waterleak.eq(meterWaterleak);
+        return meterdaily.meter_waterleak.eq(waterleak);
     }
 
     private BooleanExpression eqModemRssi(String modemRssi) {
@@ -170,11 +191,11 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         return meterdaily.modem_rssi.eq(modemRssi);
     }
 
-    private BooleanExpression eqMdoemConnect(String modemConnect) {
-        if (modemConnect == null) {
+    private BooleanExpression eqDisconnected(String disconnected) {
+        if (disconnected == null) {
             return null;
         }
-        return meterdaily.modem_connect.eq(modemConnect);
+        return meterdaily.modem_connect.eq(disconnected);
     }
 
     private BooleanExpression eqTimeSync(String timeSync) {
@@ -191,10 +212,11 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         return meterdaily.modem_battery.eq(modemBattery);
     }
 
-    private BooleanExpression eqWateruserGauge(String wateruserGauge) {
-        if (wateruserGauge == null) {
+    private BooleanExpression eqConsumerCaliber(String consumerCaliber) {
+        if (consumerCaliber == null) {
             return null;
         }
-        return consumerInstallInfo.wateruser_gauge.eq(wateruserGauge);
+        return consumerInstallInfo.wateruser_gauge.eq(consumerCaliber);
     }
+
 }

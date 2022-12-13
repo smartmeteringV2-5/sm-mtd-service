@@ -1,15 +1,13 @@
 package com.kspia.mtdservice.service.impl;
 
-import com.kspia.mtdservice.dto.SearchListDto;
 import com.kspia.mtdservice.dto.StatusCheckDto;
 import com.kspia.mtdservice.repository.StatusCheckRepository;
 import com.kspia.mtdservice.service.StatusCheckService;
-import com.kspia.mtdservice.vo.UsagehistoryVO;
+import com.kspia.mtdservice.vo.RequestUsageHistoryVO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * @since 2022. 12. 9
@@ -30,7 +28,7 @@ public class StatusCheckServiceImpl implements StatusCheckService {
     private final StatusCheckRepository statusCheckRepository;
 
     @Override
-    public List<StatusCheckDto> getSearch(UsagehistoryVO search) {
-        return statusCheckRepository.statusCheckByMetering(search.convertToSearchListDto());
+    public Page<StatusCheckDto> getSearch(RequestUsageHistoryVO search, Pageable pageable) {
+        return statusCheckRepository.statusCheckByMetering(search, pageable);
     }
 }

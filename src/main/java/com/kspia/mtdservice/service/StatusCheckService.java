@@ -1,10 +1,9 @@
 package com.kspia.mtdservice.service;
 
-import com.kspia.mtdservice.dto.SearchListDto;
 import com.kspia.mtdservice.dto.StatusCheckDto;
-import com.kspia.mtdservice.vo.UsagehistoryVO;
-
-import java.util.List;
+import com.kspia.mtdservice.vo.RequestUsageHistoryVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * @since 2022. 12. 9
@@ -19,5 +18,5 @@ import java.util.List;
  * 2022.12. 09 jung : 실시간 현황 조회 작업
  */
 public interface StatusCheckService {
-   List<StatusCheckDto> getSearch(UsagehistoryVO search);
+   Page<StatusCheckDto> getSearch(RequestUsageHistoryVO search, Pageable pageable);
 }

@@ -29,11 +29,11 @@ public class SearchListDto {
     //행정동
     private String dongNm;
     //분구
-    private String dividarea;
+    private String bunguId;
     //고객번호
     private String mngId;
     //성명
-    private String wateruserName;
+    private String consumerName;
     //도로명주소
     private String newAddress;
     // meterid 계랑기번호
@@ -41,17 +41,20 @@ public class SearchListDto {
     //검침일
     private String checkDay;
     //급수전 구분
-    private String wateruserState;
+    private String consumerState;
     //계랑기 상태
-    private String meter_backflow; //역류
-    private String meter_battery; //배터리
-    private String meter_overflow; //과부화
-    private String meter_waterleak; //누수
+    private String backflow; //역류
+    private String meterBattery; //배터리
+    private String overflow; //과부화
+    private String waterleak; //누수
     //단말기 상태
     private String modem_rssi;
-    private String modem_connect; //결선불량
-    private String time_sync;
-    private String modem_battery;
+    private String disconnected; //결선불량
+    private String timeSync;
+    private String modemBattery;
     //구경
-    private String wateruserGauge;
+    private String consumerCaliber;
+
+    public void setDailyDate(String fromDate, String toDate) {
+    }
 }
