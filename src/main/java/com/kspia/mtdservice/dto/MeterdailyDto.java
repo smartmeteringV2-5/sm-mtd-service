@@ -1,6 +1,7 @@
 package com.kspia.mtdservice.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MeterdailyDto {
     private String modem_id;
-    private Date daily_date;
+    private LocalDate daily_date;
     private BigDecimal past_value;
     private Date metering_date;
     private BigDecimal new_value;

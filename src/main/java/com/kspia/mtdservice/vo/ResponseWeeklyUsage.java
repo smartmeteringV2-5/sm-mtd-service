@@ -1,5 +1,6 @@
 package com.kspia.mtdservice.vo;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.kspia.mtdservice.dto.MeterdailyDto;
@@ -22,6 +23,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ResponseWeeklyUsage {
-    private Date dailyDate;
-    private long dailyUsage;
+    private LocalDate dailyDate;
+    private Double dailyUsage;
 }
