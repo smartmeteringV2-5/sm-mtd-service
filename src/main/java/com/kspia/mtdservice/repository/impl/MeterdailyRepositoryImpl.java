@@ -4,6 +4,7 @@ import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
 import com.kspia.mtdservice.repository.MeterdailyRepository;
 import com.kspia.mtdservice.vo.RequestEquipState;
+import com.kspia.mtdservice.vo.RequestReceivingState;
 import com.kspia.mtdservice.vo.ResponseDashboardMap;
 import com.kspia.mtdservice.vo.ResponseModemCount;
 import com.kspia.mtdservice.vo.ResponseReceivingStateCount;
@@ -32,6 +33,7 @@ import org.springframework.stereotype.Repository;
  * 2022-12-08 kkny3 : countByModemStatus 작업
  * 2022-12-09 kkny3 : findMapListByEquipState 작업
  * 2022-12-13 kkny3 : countByReceivingState 작업
+ * 2022-12-14 kkny3 : findMapListByReceivingState 작업
  */
 @Repository
 public class MeterdailyRepositoryImpl implements MeterdailyRepository {
@@ -93,6 +95,31 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
             .fetch().size();
     }
 
+    @Override
+    public List<ResponseDashboardMap> findMapListByReceivingState(RequestReceivingState search) {
+        Date fromDate = Timestamp.valueOf(LocalDate.now().minusDays(5).atStartOfDay());
+        Date toDate = Timestamp.valueOf(LocalDate.now().atStartOfDay());
+        return jpaQueryFactory.select(Projections.bean(
+                    ResponseDashboardMap.class,
+                    consumerModemInfo.geo_x.as("geoX"),
+                    consumerModemInfo.geo_y.as("geoY"),
+                    consumerModemInfo.daum_x.as("daumX"),
+                    consumerModemInfo.daum_y.as("daumY"),
+                    consumerModemInfo.mng_id.as("mngId"),
+                    consumerModemInfo.wateruser_type.as("waterUserType")
+                )
+            )
+            .from(meterdaily)
+            .leftJoin(consumerModemInfo)
+            .on(meterdaily.meterdailyId.modem_id.eq(consumerModemInfo.modem_id))
+            .where(meterdaily.meterdailyId.daily_date.goe(fromDate),
+                meterdaily.meterdailyId.daily_date.loe(toDate),
+                meterdaily.daily_tag.eq("N"))
+            .groupBy(meterdaily.meterdailyId.modem_id)
+            .having(getQueryByReceivingState(search.getStateType()))
+            .fetch();
+    }
+
     private BooleanExpression getQueryByEquipState(String equipState) {
         switch (equipState) {
             case "modemLowBattery":
@@ -113,11 +140,11 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
 
     private BooleanExpression getQueryByReceivingState(String receivingState) {
         switch (receivingState) {
-            case "normalReception":
+            case "normalReception": case "normal_reception":
                 return meterdaily.daily_tag.count().intValue().goe(3);
-            case "noReception":
+            case "noReception": case "no_reception":
                 return meterdaily.daily_tag.count().intValue().in(1, 2);
-            case "longTermNoReception":
+            case "longTermNoReception": case "longterm_no_reception":
                 return meterdaily.daily_tag.count().intValue().eq(0);
         }
         return meterdaily.daily_tag.count().intValue().goe(3);

@@ -1,6 +1,7 @@
 package com.kspia.mtdservice.service;
 
 import com.kspia.mtdservice.vo.RequestEquipState;
+import com.kspia.mtdservice.vo.RequestReceivingState;
 import com.kspia.mtdservice.vo.ResponseModemCount;
 import com.kspia.mtdservice.vo.ResponseReceivingStateCount;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.Map;
  * 2022-12-08 kkny3 : getModemCount 작업
  * 2022-12-09 kkny3 : getEquipStateMap 작업
  * 2022-12-13 kkny3 : getReceivingStateCount 작업
+ * 2022-12-14 kkny3 : getReceivingStateMap 작업
  */
 public interface DashboardService {
     ResponseModemCount getModemCount();
@@ -26,4 +28,6 @@ public interface DashboardService {
     Map<String, Object> getEquipStateMap(RequestEquipState search);
 
     ResponseReceivingStateCount getReceivingStateCount();
+
+    Map<String, Object> getReceivingStateMap(RequestReceivingState search);
 }
