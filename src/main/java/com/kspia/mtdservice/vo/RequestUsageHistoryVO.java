@@ -8,7 +8,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
-
+/**
+ * @since 2022. 12. 12
+ * @author jung
+ *
+ * @Discript
+ * ---------------------------------------------------
+ * 개요 : 실시간 현황 조회 Vo 생성
+ * ---------------------------------------------------
+ * @EditHIstory
+ * 개정이력
+ * 2022-12.12 jung: 최초 작성
+ * 2022.12.08 jung : 실시간 현황 조회 vo 생성
+ */
 @Data
 public class RequestUsageHistoryVO {
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
@@ -40,23 +52,23 @@ public class RequestUsageHistoryVO {
 	private String checkDay;
 	private String modemRssiCode;
 
-	public SearchListDto convertToSearchListDto() {
-		SearchListDto searchListDto = new SearchListDto();
-		searchListDto.setDongNm(this.dongId);
-		searchListDto.setBunguId(this.bunguId);
-		searchListDto.setConsumerName(this.consumerName);
-		searchListDto.setConsumerState(this.consumerState);
-		searchListDto.setBackflow(this.meteringSignalStatus);
-		searchListDto.setMeterBattery(this.meteringSignalStatus);
-		searchListDto.setOverflow(this.meteringSignalStatus);
-		searchListDto.setWaterleak(this.meteringSignalStatus);
-		searchListDto.setModem_rssi(this.modemSignalStatus);
-		searchListDto.setModemBattery(this.modemSignalStatus);
-		searchListDto.setDisconnected(this.modemSignalStatus);
-		searchListDto.setTimeSync(this.modemSignalStatus);
-		searchListDto.setConsumerCaliber(this.consumerCaliber);
-		return null;
-
-	}
+//	public SearchListDto convertToSearchListDto() {
+//		SearchListDto searchListDto = new SearchListDto();
+//		searchListDto.setDongNm(this.dongId);
+//		searchListDto.setBunguId(this.bunguId);
+//		searchListDto.setConsumerName(this.consumerName);
+//		searchListDto.setConsumerState(this.consumerState);
+//		searchListDto.setBackflow(this.meteringSignalStatus);
+//		searchListDto.setMeterBattery(this.meteringSignalStatus);
+//		searchListDto.setOverflow(this.meteringSignalStatus);
+//		searchListDto.setWaterleak(this.meteringSignalStatus);
+//		searchListDto.setModem_rssi(this.modemSignalStatus);
+//		searchListDto.setModemBattery(this.modemSignalStatus);
+//		searchListDto.setDisconnected(this.modemSignalStatus);
+//		searchListDto.setTimeSync(this.modemSignalStatus);
+//		searchListDto.setConsumerCaliber(this.consumerCaliber);
+//		return null;
+//
+//	}
 
 }
