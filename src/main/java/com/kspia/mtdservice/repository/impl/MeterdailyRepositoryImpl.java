@@ -80,8 +80,17 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     }
 
     @Override
-    public ResponseReceivingStateCount countByReceivingState() {
-        return null;
+    public int countByReceivingState(String receivingState) {
+        Date fromDate = Timestamp.valueOf(LocalDate.now().minusDays(5).atStartOfDay());
+        Date toDate = Timestamp.valueOf(LocalDate.now().atStartOfDay());
+        return jpaQueryFactory
+            .selectFrom(meterdaily)
+            .where(meterdaily.meterdailyId.daily_date.goe(fromDate),
+                meterdaily.meterdailyId.daily_date.loe(toDate),
+                meterdaily.daily_tag.eq("N"))
+            .groupBy(meterdaily.meterdailyId.modem_id)
+            .having(getQueryByReceivingState(receivingState))
+            .fetch().size();
     }
 
     private BooleanExpression getQueryByEquipState(String equipState) {
@@ -100,7 +109,18 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
                 return meterdaily.meter_battery.in(1, 2);
         }
         return meterdaily.modem_battery.in(0, 1);
-//        return throw new DataNotFoundException("선택된 항목이 없습니다.");
+    }
+
+    private BooleanExpression getQueryByReceivingState(String receivingState) {
+        switch (receivingState) {
+            case "normalReception":
+                return meterdaily.daily_tag.count().intValue().goe(3);
+            case "noReception":
+                return meterdaily.daily_tag.count().intValue().in(1, 2);
+            case "longTermNoReception":
+                return meterdaily.daily_tag.count().intValue().eq(0);
+        }
+        return meterdaily.daily_tag.count().intValue().goe(3);
     }
 
     private BooleanExpression goeDailyDate() {

@@ -1,5 +1,8 @@
 package com.kspia.mtdservice.vo;
 
+import java.util.Map;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,8 +20,18 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ResponseReceivingStateCount {
     private int normalReceptionCnt;
     private int noReceptionCnt;
     private int longTermNoReceptionCnt;
+
+    public static ResponseReceivingStateCount convertMap(Map<String, Integer> map) {
+     return ResponseReceivingStateCount.builder()
+         .normalReceptionCnt(map.get("normalReception"))
+         .noReceptionCnt(map.get("noReception"))
+         .longTermNoReceptionCnt(map.get("longTermNoReception"))
+         .build();
+    }
 }

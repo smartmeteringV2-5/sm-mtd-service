@@ -28,5 +28,5 @@ public interface MeterdailyRepository {
 
     List<ResponseDashboardMap> findMapListByEquipState(RequestEquipState search);
 
-    ResponseReceivingStateCount countByReceivingState();
+    int countByReceivingState(String receivingState);
 }

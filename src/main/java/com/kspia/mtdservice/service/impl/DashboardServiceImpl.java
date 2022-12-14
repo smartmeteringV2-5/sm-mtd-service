@@ -5,7 +5,9 @@ import com.kspia.mtdservice.service.DashboardService;
 import com.kspia.mtdservice.vo.RequestEquipState;
 import com.kspia.mtdservice.vo.ResponseModemCount;
 import com.kspia.mtdservice.vo.ResponseReceivingStateCount;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +49,12 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public ResponseReceivingStateCount getReceivingStateCount() {
-        return meterdailyRepository.countByReceivingState();
+        List<String> receivingStates = Arrays.asList("normalReception", "noReception", "longTermNoReception");
+        Map<String, Integer> map = new HashMap<>();
+        for (String receivingState : receivingStates) {
+            int count = meterdailyRepository.countByReceivingState(receivingState);
+            map.put(receivingState, count);
+        }
+        return ResponseReceivingStateCount.convertMap(map);
     }
 }
