@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -14,7 +16,7 @@ public class MeterdailyId implements Serializable {
     private String modem_id;
 
     @Column(nullable = false)
-    private Date daily_date;
+    private LocalDate daily_date;
 
 
 

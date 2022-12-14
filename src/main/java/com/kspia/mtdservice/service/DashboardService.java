@@ -1,10 +1,15 @@
 package com.kspia.mtdservice.service;
 
+import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
+import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
+
+import java.util.List;
 import com.kspia.mtdservice.vo.RequestEquipState;
 import com.kspia.mtdservice.vo.RequestReceivingState;
 import com.kspia.mtdservice.vo.ResponseModemCount;
 import com.kspia.mtdservice.vo.ResponseReceivingStateCount;
 import java.util.Map;
+import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 
 /**
  * @since 2022-12-08
@@ -23,6 +28,10 @@ import java.util.Map;
  * 2022-12-14 kkny3 : getReceivingStateMap 작업
  */
 public interface DashboardService {
+    MeterCount getMeterCount();
+    
+    List<UsageWeekly> getDalilyUsageWeekly();
+    
     ResponseModemCount getModemCount();
 
     Map<String, Object> getEquipStateMap(RequestEquipState search);

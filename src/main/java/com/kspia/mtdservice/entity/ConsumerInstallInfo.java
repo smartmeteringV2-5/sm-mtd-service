@@ -13,7 +13,9 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "consumer_modem_info")
+
 public class ConsumerInstallInfo implements Serializable {
+
     @Id
     private Long consumer_sid;
 
@@ -33,8 +35,10 @@ public class ConsumerInstallInfo implements Serializable {
 
     private String wateruser_type;
 
+    @Column(length = 510)
     private String new_address;
 
+    @Column(length = 510)
     private String old_address;
 
     private Long group_sid;
@@ -66,6 +70,8 @@ public class ConsumerInstallInfo implements Serializable {
     private String block_m_cd;
 
     private String block_s_cd;
+
+    @Column(length = 511)
 
     private String vworld_gps;
 

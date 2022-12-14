@@ -1,5 +1,9 @@
 package com.kspia.mtdservice.repository.impl;
 
+import com.kspia.mtdservice.dto.MeterdailyDto;
+import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
+import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
+import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
 import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
 import com.kspia.mtdservice.repository.MeterdailyRepository;
@@ -12,6 +16,12 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -60,6 +70,39 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
             .where(goeDailyDate())
             .fetchOne();
     }
+    
+    @Override
+    public MeterCount countByMeterStatus() {
+    	
+        return jpaQueryFactory.select(Projections.bean(
+                MeterCount.class,
+                    new CaseBuilder().when(meterdaily.meter_battery.in(1, 2)).then(1).otherwise(0).sum().as("meterLowBatteryCnt"),
+                    new CaseBuilder().when(meterdaily.meter_waterleak.in(1)).then(1).otherwise(0).sum().as("waterLeakCnt"),
+                    new CaseBuilder().when(meterdaily.meter_overflow.eq(1)).then(1).otherwise(0).sum().as("overflowCnt")
+                )
+            )
+            .from(meterdaily)
+            .fetchOne();
+    }
+    
+    @Override
+    public List<UsageWeekly> findByDailyDateAndDailyUsage() {
+    	LocalDateTime localDate = LocalDateTime.now().plusHours(9);
+        LocalDateTime minusDate = localDate.minusDays(7);
+        Date date = java.sql.Timestamp.valueOf(localDate);
+        Date minusdate = java.sql.Timestamp.valueOf(minusDate);
+    	return jpaQueryFactory.select(Projections.bean(
+                MeterdailyDto.UsageWeekly.class,
+                meterdaily.meterdailyId.daily_date.as("dailyDate"),
+                meterdaily.daily_usage.sum().doubleValue().as("dailyUsage")
+                )
+    		)
+    		.from(meterdaily)
+    		.where(meterdaily.meterdailyId.daily_date.between(minusdate, date))
+            .groupBy(meterdaily.meterdailyId.daily_date)
+            .orderBy(meterdaily.meterdailyId.daily_date.desc())
+            .fetch();     
+    } 
 
     @Override
     public List<ResponseDashboardMap> findMapListByEquipState(RequestEquipState search) {

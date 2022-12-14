@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Embeddable
@@ -16,7 +17,7 @@ public class MeterdataId implements Serializable {
 
 //    @Comment("미터링시각")
     @Column(nullable = false,name = "metering_date")
-    private LocalDateTime metering_date;
+    private Date metering_date;
 
 
 
