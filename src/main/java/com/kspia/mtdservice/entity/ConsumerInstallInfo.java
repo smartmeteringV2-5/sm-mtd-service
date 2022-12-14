@@ -53,7 +53,7 @@ public class ConsumerInstallInfo implements Serializable {
 
     private String dividarea;
 
-    private int area_id;
+    private String area_id;
 
     private String area_nm;
 
