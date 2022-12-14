@@ -15,8 +15,6 @@ import java.util.Date;
 @Entity
 @Table(name = "consumer_modem_info")
 @Immutable
-@Entity
-@Table(name = "consumer_modem_info")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class ConsumerModemInfo implements Serializable {
     @Id

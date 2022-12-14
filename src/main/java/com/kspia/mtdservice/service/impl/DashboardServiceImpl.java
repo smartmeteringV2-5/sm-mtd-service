@@ -1,14 +1,7 @@
 package com.kspia.mtdservice.service.impl;
 
-import com.kspia.mtdservice.dto.MeterdailyDto;
 import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
-import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
-import com.kspia.mtdservice.repository.MeterdailyRepository;
-import com.kspia.mtdservice.service.DashboardService;
-
-import java.util.List;
-
 import com.kspia.mtdservice.repository.MeterdailyRepository;
 import com.kspia.mtdservice.service.DashboardService;
 import com.kspia.mtdservice.vo.RequestEquipState;

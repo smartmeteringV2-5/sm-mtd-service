@@ -2,14 +2,11 @@ package com.kspia.mtdservice.repository;
 
 import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
-
 import com.kspia.mtdservice.vo.RequestEquipState;
 import com.kspia.mtdservice.vo.RequestReceivingState;
 import com.kspia.mtdservice.vo.ResponseDashboardMap;
 import com.kspia.mtdservice.vo.ResponseModemCount;
-import com.kspia.mtdservice.vo.ResponseReceivingStateCount;
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 /**
