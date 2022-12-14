@@ -54,9 +54,9 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
 
         return jpaQueryFactory.select(Projections.bean(
                 ResponseModemCount.class,
-                    new CaseBuilder().when(meterdaily.modem_battery.in(0, 1)).then(1).otherwise(0).sum().as("modemLowBatteryCnt"),
-                    new CaseBuilder().when(meterdaily.time_sync.eq(0)).then(1).otherwise(0).sum().as("timeSyncCnt"),
-                    meterdaily.modem_connect.sum().intValue().as("disconnectCnt")
+                    new CaseBuilder().when(meterdaily.modem_battery.in("0", "1")).then(1).otherwise(0).sum().as("modemLowBatteryCnt"),
+                    new CaseBuilder().when(meterdaily.time_sync.eq("0")).then(1).otherwise(0).sum().as("timeSyncCnt"),
+                    new CaseBuilder().when(meterdaily.modem_connect.eq("1")).then(1).otherwise(0).sum().as("disconnectCnt")
                 )
             )
             .from(meterdaily)
@@ -119,12 +119,10 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
 
     @Override
     public int countByReceivingState(String receivingState) {
-        Date fromDate = Timestamp.valueOf(LocalDate.now().minusDays(5).atStartOfDay());
-        Date toDate = Timestamp.valueOf(LocalDate.now().atStartOfDay());
         return jpaQueryFactory
             .selectFrom(meterdaily)
-            .where(meterdaily.meterdailyId.daily_date.goe(fromDate),
-                meterdaily.meterdailyId.daily_date.loe(toDate),
+            .where(meterdaily.meterdailyId.daily_date.goe(LocalDate.from(LocalDate.now().minusDays(5).atStartOfDay())),
+                meterdaily.meterdailyId.daily_date.loe(LocalDate.from(LocalDate.now().atStartOfDay())),
                 meterdaily.daily_tag.eq("N"))
             .groupBy(meterdaily.meterdailyId.modem_id)
             .having(getQueryByReceivingState(receivingState))
@@ -133,8 +131,6 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
 
     @Override
     public List<ResponseDashboardMap> findMapListByReceivingState(RequestReceivingState search) {
-        Date fromDate = Timestamp.valueOf(LocalDate.now().minusDays(5).atStartOfDay());
-        Date toDate = Timestamp.valueOf(LocalDate.now().atStartOfDay());
         return jpaQueryFactory.select(Projections.bean(
                     ResponseDashboardMap.class,
                     consumerModemInfo.geo_x.as("geoX"),
@@ -148,8 +144,8 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
             .from(meterdaily)
             .leftJoin(consumerModemInfo)
             .on(meterdaily.meterdailyId.modem_id.eq(consumerModemInfo.modem_id))
-            .where(meterdaily.meterdailyId.daily_date.goe(fromDate),
-                meterdaily.meterdailyId.daily_date.loe(toDate),
+            .where(meterdaily.meterdailyId.daily_date.goe(LocalDate.from(LocalDate.now().minusDays(5).atStartOfDay())),
+                meterdaily.meterdailyId.daily_date.loe(LocalDate.from(LocalDate.now().atStartOfDay())),
                 meterdaily.daily_tag.eq("N"))
             .groupBy(meterdaily.meterdailyId.modem_id)
             .having(getQueryByReceivingState(search.getStateType()))
@@ -159,19 +155,19 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     private BooleanExpression getQueryByEquipState(String equipState) {
         switch (equipState) {
             case "modemLowBattery":
-                return meterdaily.modem_battery.in(0, 1);
+                return meterdaily.modem_battery.in("0", "1");
             case "disConnect":
-                return meterdaily.modem_connect.eq(BigDecimal.valueOf(1));
+                return meterdaily.modem_connect.eq("1.0");
             case "timeSync":
-                return meterdaily.time_sync.eq(0);
+                return meterdaily.time_sync.eq("0");
             case "overflow":
-                return meterdaily.meter_overflow.eq(1);
+                return meterdaily.meter_overflow.eq("1");
             case "waterLeak":
-                return meterdaily.meter_waterleak.eq(1);
+                return meterdaily.meter_waterleak.eq("1");
             case "meterLowBattery":
-                return meterdaily.meter_battery.in(1, 2);
+                return meterdaily.meter_battery.in("1", "2");
         }
-        return meterdaily.modem_battery.in(0, 1);
+        return meterdaily.modem_battery.in("0", "1");
     }
 
     private BooleanExpression getQueryByReceivingState(String receivingState) {
@@ -187,8 +183,6 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     }
 
     private BooleanExpression goeDailyDate() {
-        Date nowDate = Timestamp.valueOf(LocalDate.now().atStartOfDay());
-
-        return meterdaily.meterdailyId.daily_date.goe(nowDate);
+        return meterdaily.meterdailyId.daily_date.goe(LocalDate.from(LocalDate.now().atStartOfDay()));
     }
 }
