@@ -5,6 +5,7 @@ import com.kspia.mtdservice.entity.QConsumerInstallInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
 import com.kspia.mtdservice.repository.StatusCheckRepository;
 import com.kspia.mtdservice.vo.RequestUsageHistoryVO;
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -66,7 +69,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                 .from(consumerInstallInfo)
                 .join(meterdaily)
                 .on(consumerInstallInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))
-                .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getStandardDate()),
+                .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getFromDate()),
                         eqDongNm(sl.getDongId()), eqBunguId(sl.getBunguId()), eqMngId(sl.getMngId()),
                         eqWateruserName(sl.getConsumerName()), eqNewAddress(sl.getNewAddress()),
                         eqWateruserState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
@@ -79,7 +82,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                 //페이지 총 카운트 구하기
                 long total = jpaQueryFactory.select(consumerInstallInfo.count()).from(consumerInstallInfo)
                         .join(meterdaily).on(consumerInstallInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))
-                        .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getStandardDate()),
+                        .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getFromDate()),
                                 eqDongNm(sl.getDongId()), eqBunguId(sl.getBunguId()), eqMngId(sl.getMngId()),
                                 eqWateruserName(sl.getConsumerName()), eqNewAddress(sl.getNewAddress()),
                                 eqWateruserState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
@@ -87,7 +90,6 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                                 eqWaterleak(sl.getMeteringSignalStatus()),eqDisconnected(sl.getModemSignalStatus()),
                                 eqTimeSync(sl.getModemSignalStatus()), eqModemBattery(sl.getModemSignalStatus()), eqConsumerCaliber(sl.getConsumerCaliber()))
                         .fetchOne();
-                System.out.println(total);
 
         return new PageImpl<>(results, pageable, total);
     }
@@ -107,11 +109,12 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         return consumerInstallInfo.check_day.eq(checkDay);
     }
 
-    private BooleanExpression eqDailyDate(Date dailyDate) {
+    private BooleanExpression eqDailyDate(LocalDateTime dailyDate) {
         if (dailyDate == null) {
             return null;
         }
-        return meterdaily.meterdailyId.daily_date.eq(dailyDate);
+        LocalDate localDailyDate = LocalDate.from(dailyDate);
+        return meterdaily.meterdailyId.daily_date.eq(localDailyDate);
     }
 
     private BooleanExpression eqDongNm(String dongNm) {

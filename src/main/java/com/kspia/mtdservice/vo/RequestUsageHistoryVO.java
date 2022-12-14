@@ -5,19 +5,21 @@ import com.kspia.mtdservice.dto.SearchListDto;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 public class RequestUsageHistoryVO {
-//	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
-//	private Date fromDate;
-//	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
-//	private Date toDate;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDateTime fromDate;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date standardDate;
+	private Date toDate;
+//	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+//	@DateTimeFormat(pattern = "yyyy-MM-dd")
+//	private Date standardDate;
 	private String areaId;  // - 사업소
 	private String dongId;  // - 동
 	private String bunguId;  // - 분구
