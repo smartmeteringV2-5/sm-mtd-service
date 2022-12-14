@@ -36,19 +36,19 @@ public class Meterdaily {
 
 //    @Comment("역류 TRUE:1, FALSE:0")
     @Column(nullable = false)
-    private Integer meter_backflow;
+    private String meter_backflow;
 
 //    @Comment("계량기 배터리 1~4")
     @Column(nullable = false)
-    private Integer meter_battery;
+    private String meter_battery;
 
 //    @Comment("과부하 TRUE:1, FALSE:0")
     @Column(nullable = false)
-    private Integer meter_overflow;
+    private String meter_overflow;
 
 //    @Comment("누수 TRUE:1, FALSE:0")
     @Column(nullable = false)
-    private Integer meter_waterleak;
+    private String meter_waterleak;
 
 //    @Comment("rssi")
 //    @ColumnDefault("'0'")
@@ -56,10 +56,10 @@ public class Meterdaily {
 
 //    @Comment("결선불량")
     @Column(precision = 2, scale = 1)
-    private BigDecimal modem_connect;
+    private String modem_connect;
 
 //    @Comment("타임싱크")
-    private Integer time_sync;
+    private String time_sync;
 
 //    @Comment("검침상태")
     @Column(nullable = false)
@@ -71,7 +71,7 @@ public class Meterdaily {
     private Date update_date;
 
     @Column(nullable = false, precision = 2, scale = 1 )
-    private BigDecimal modem_battery;
+    private String modem_battery;
 
 
 

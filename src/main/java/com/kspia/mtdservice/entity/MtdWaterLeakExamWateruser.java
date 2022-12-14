@@ -1,5 +1,6 @@
 package com.kspia.mtdservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "Mtd_Water_Leak_Exam_Wateruser", indexes = { @Index(name = "FKhe5m1okl6whjid4rxb4qy0r9v" , columnList = "exam_group_idx")})
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class MtdWaterLeakExamWateruser implements Serializable {
     @OneToMany
     @JoinColumn(name = "exam_wateruser_idx")

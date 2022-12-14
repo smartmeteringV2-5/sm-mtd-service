@@ -8,6 +8,7 @@ import com.kspia.mtdservice.vo.RequestEquipState;
 import com.kspia.mtdservice.vo.ResponseModemCount;
 import com.kspia.mtdservice.vo.ResponseReceivingStateCount;
 import java.util.Map;
+import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 
 /**
  * @since 2022-12-08
