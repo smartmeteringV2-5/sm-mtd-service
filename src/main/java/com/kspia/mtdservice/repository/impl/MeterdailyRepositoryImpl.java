@@ -1,6 +1,5 @@
 package com.kspia.mtdservice.repository.impl;
 
-import com.kspia.mtdservice.dto.MeterdailyDto;
 import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
 import com.kspia.mtdservice.repository.MeterdailyRepository;
@@ -87,11 +86,10 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
                 )
     		)
     		.from(meterdaily)
-    		.where(meterdaily.meterdailyId.daily_date.between(localDate, minusDate))
+    		.where(meterdaily.meterdailyId.daily_date.between(minusDate, localDate))
             .groupBy(meterdaily.meterdailyId.daily_date)
             .orderBy(meterdaily.meterdailyId.daily_date.desc())
             .fetch();   
-
     } 
 
     @Override
