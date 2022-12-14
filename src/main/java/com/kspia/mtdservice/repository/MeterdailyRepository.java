@@ -1,8 +1,6 @@
 package com.kspia.mtdservice.repository;
 
-import com.kspia.mtdservice.dto.MeterdailyDto;
 import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
-import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
 
 import com.kspia.mtdservice.vo.RequestEquipState;
@@ -31,7 +29,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MeterdailyRepository {
     MeterCount countByMeterStatus();
+    
     List<UsageWeekly> findByDailyDateAndDailyUsage();
+    
     ResponseModemCount countByModemStatus();
 
     List<ResponseDashboardMap> findMapListByEquipState(RequestEquipState search);

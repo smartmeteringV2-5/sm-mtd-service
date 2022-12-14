@@ -60,7 +60,7 @@ public class MeterdailyDto {
     @Data
     @NoArgsConstructor
     public static class UsageWeekly {
-        private Date daily_date;
-        private double daily_usage;
+        private Date dailyDate;
+        private double dailyUsage;
     }
 }

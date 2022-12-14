@@ -1,8 +1,6 @@
 package com.kspia.mtdservice.service;
 
-import com.kspia.mtdservice.dto.MeterdailyDto;
 import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
-import com.kspia.mtdservice.dto.MeterdailyDto.ModemCount;
 import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
 
 import java.util.List;
@@ -28,7 +26,9 @@ import java.util.Map;
  */
 public interface DashboardService {
     MeterCount getMeterCount();
+    
     List<UsageWeekly> getDalilyUsageWeekly();
+    
     ResponseModemCount getModemCount();
 
     Map<String, Object> getEquipStateMap(RequestEquipState search);

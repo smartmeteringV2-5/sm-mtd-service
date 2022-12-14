@@ -71,8 +71,9 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     
     @Override
     public MeterCount countByMeterStatus() {
+    	
         return jpaQueryFactory.select(Projections.bean(
-                    MeterdailyDto.MeterCount.class,
+                MeterCount.class,
                     new CaseBuilder().when(meterdaily.meter_battery.in(1, 2)).then(1).otherwise(0).sum().as("meterLowBatteryCnt"),
                     new CaseBuilder().when(meterdaily.meter_waterleak.in(1)).then(1).otherwise(0).sum().as("waterLeakCnt"),
                     new CaseBuilder().when(meterdaily.meter_overflow.eq(1)).then(1).otherwise(0).sum().as("overflowCnt")
@@ -90,8 +91,8 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
         Date minusdate = java.sql.Timestamp.valueOf(minusDate);
     	return jpaQueryFactory.select(Projections.bean(
                 MeterdailyDto.UsageWeekly.class,
-                meterdaily.meterdailyId.daily_date.as("daily_date"),
-                meterdaily.daily_usage.sum().doubleValue().as("daily_usage")
+                meterdaily.meterdailyId.daily_date.as("dailyDate"),
+                meterdaily.daily_usage.sum().doubleValue().as("dailyUsage")
                 )
     		)
     		.from(meterdaily)
