@@ -1,23 +1,21 @@
 package com.kspia.mtdservice.repository.impl;
 
 import com.kspia.mtdservice.dto.MeterdailyDto;
-import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
-import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
 import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
 import com.kspia.mtdservice.repository.MeterdailyRepository;
 import com.kspia.mtdservice.vo.RequestEquipState;
 import com.kspia.mtdservice.vo.RequestReceivingState;
 import com.kspia.mtdservice.vo.ResponseDashboardMap;
+import com.kspia.mtdservice.vo.ResponseMeterCount;
 import com.kspia.mtdservice.vo.ResponseModemCount;
+import com.kspia.mtdservice.vo.ResponseWeeklyUsage;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -33,8 +31,10 @@ import org.springframework.stereotype.Repository;
  * 개정이력
  * 2022-12-08 kkny3 : 최초 작성
  * 2022-12-08 kkny3 : countByModemStatus 작업
+ * 2022-12-08 MINHYE : countByMeterStatus 작업
  * 2022-12-09 kkny3 : findMapListByEquipState 작업
  * 2022-12-13 kkny3 : countByReceivingState 작업
+ * 2022-12-13 MINHYE : findByDailyDateAndDailyUsage 작업
  * 2022-12-14 kkny3 : findMapListByReceivingState 작업
  */
 @Repository
@@ -64,9 +64,9 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     }
     
     @Override
-    public MeterCount countByMeterStatus() {
+    public ResponseMeterCount countByMeterStatus() {
         return jpaQueryFactory.select(Projections.bean(
-                MeterCount.class,
+        		ResponseMeterCount.class,
                     new CaseBuilder().when(meterdaily.meter_battery.in("1", "2")).then(1).otherwise(0).sum().as("meterLowBatteryCnt"),
                     new CaseBuilder().when(meterdaily.meter_waterleak.in("1")).then(1).otherwise(0).sum().as("waterLeakCnt"),
                     new CaseBuilder().when(meterdaily.meter_overflow.eq("1")).then(1).otherwise(0).sum().as("overflowCnt")
@@ -77,11 +77,11 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     }
     
     @Override
-    public List<UsageWeekly> findByDailyDateAndDailyUsage() {
+    public List<ResponseWeeklyUsage> findByDailyDateAndDailyUsage() {
     	LocalDate localDate = LocalDate.now();
         LocalDate minusDate = localDate.minusDays(7);
     	return jpaQueryFactory.select(Projections.bean(
-                MeterdailyDto.UsageWeekly.class,
+    			ResponseWeeklyUsage.class,
                 meterdaily.meterdailyId.daily_date.as("dailyDate"),
                 meterdaily.daily_usage.sum().doubleValue().as("dailyUsage")
                 )

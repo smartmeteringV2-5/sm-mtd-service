@@ -1,13 +1,14 @@
 package com.kspia.mtdservice.service.impl;
 
-import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
-import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
 import com.kspia.mtdservice.repository.MeterdailyRepository;
 import com.kspia.mtdservice.service.DashboardService;
 import com.kspia.mtdservice.vo.RequestEquipState;
 import com.kspia.mtdservice.vo.RequestReceivingState;
+import com.kspia.mtdservice.vo.ResponseMeterCount;
 import com.kspia.mtdservice.vo.ResponseModemCount;
 import com.kspia.mtdservice.vo.ResponseReceivingStateCount;
+import com.kspia.mtdservice.vo.ResponseWeeklyUsage;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +27,10 @@ import org.springframework.stereotype.Service;
  * 개정이력
  * 2022-12-08 kkny3 : 최초 작성
  * 2022-12-08 kkny3 : getModemCount 작업
+ * 2022-12-08 MINHYE : getMeterCount 작업
  * 2022-12-09 kkny3 : getEquipStateMap 작업
  * 2022-12-13 kkny3 : getReceivingStateCount 작업
+ * 2022-12-13 MINHYE : getDalilyUsageWeekly 작업
  * 2022-12-14 kkny3 : getReceivingStateMap 작업
  */
 @Service
@@ -44,11 +47,11 @@ public class DashboardServiceImpl implements DashboardService {
       return meterdailyRepository.countByModemStatus();
     }
     
-    public MeterCount getMeterCount() {
+    public ResponseMeterCount getMeterCount() {
         return meterdailyRepository.countByMeterStatus();
       }
     
-    public List<UsageWeekly> getDalilyUsageWeekly() {
+    public List<ResponseWeeklyUsage> getDalilyUsageWeekly() {
         return meterdailyRepository.findByDailyDateAndDailyUsage();
       }
 

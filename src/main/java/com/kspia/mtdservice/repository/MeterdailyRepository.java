@@ -1,11 +1,12 @@
 package com.kspia.mtdservice.repository;
 
-import com.kspia.mtdservice.dto.MeterdailyDto.MeterCount;
-import com.kspia.mtdservice.dto.MeterdailyDto.UsageWeekly;
 import com.kspia.mtdservice.vo.RequestEquipState;
 import com.kspia.mtdservice.vo.RequestReceivingState;
 import com.kspia.mtdservice.vo.ResponseDashboardMap;
+import com.kspia.mtdservice.vo.ResponseMeterCount;
 import com.kspia.mtdservice.vo.ResponseModemCount;
+import com.kspia.mtdservice.vo.ResponseWeeklyUsage;
+
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -21,15 +22,17 @@ import org.springframework.stereotype.Repository;
  * 개정이력
  * 2022-12-08 kkny3 : 최초 작성
  * 2022-12-08 kkny3 : countByModemStatus 작업
+ * 2022-12-08 MINHYE : countByMeterStatus 작업
  * 2022-12-09 kkny3 : findMapListByEquipState 작업
  * 2022-12-13 kkny3 : countByReceivingState 작업
+ * 2022-12-13 MINHYE : findByDailyDateAndDailyUsage 작업
  * 2022-12-14 kkny3 : findMapListByReceivingState 작업
  */
 @Repository
 public interface MeterdailyRepository {
-    MeterCount countByMeterStatus();
+	ResponseMeterCount countByMeterStatus();
     
-    List<UsageWeekly> findByDailyDateAndDailyUsage();
+    List<ResponseWeeklyUsage> findByDailyDateAndDailyUsage();
     
     ResponseModemCount countByModemStatus();
 
