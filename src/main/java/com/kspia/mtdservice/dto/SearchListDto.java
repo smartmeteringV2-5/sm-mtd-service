@@ -54,7 +54,4 @@ public class SearchListDto {
     private String modemBattery;
     //구경
     private String consumerCaliber;
-
-    public void setDailyDate(String fromDate, String toDate) {
-    }
 }

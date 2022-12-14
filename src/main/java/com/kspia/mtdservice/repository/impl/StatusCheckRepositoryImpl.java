@@ -26,11 +26,12 @@ import java.util.List;
 /**
  * @author jung
  * @Discript ---------------------------------------------------
- * 개요 : 실시간 현황 조회 repositoryImpl 생성,
+ * 개요 : 실시간 현황 조회 repositoryImpl 생성
  * ---------------------------------------------------
  * @EditHIstory 개정이력
  * 2022.12. 09 jung : 최초 작성
  * 2022.12. 12 jung : 실시간 현황 조회 작업 리스트 검색 쿼리문 작성
+ * 2022.12. 14 jung : 실시간 현황 조회 작업 리스트 검색 수정
  * @since 2022. 12. 9
  */
 @Repository
@@ -73,7 +74,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                 .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getFromDate()),
                         eqDongNm(sl.getDongId()), eqBunguId(sl.getBunguId()), eqMngId(sl.getMngId()),
                         eqWateruserName(sl.getConsumerName()), eqNewAddress(sl.getNewAddress()),
-                        eqWateruserState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
+                        eqConsumerState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
                         eqMeterBattery(sl.getMeteringSignalStatus()), eqOverflow(sl.getModemSignalStatus()),
                         eqTimeSync(sl.getModemSignalStatus()), eqModemBattery(sl.getModemSignalStatus()), eqConsumerCaliber(sl.getConsumerCaliber()))
                 //
@@ -86,7 +87,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getFromDate()),
                                 eqDongNm(sl.getDongId()), eqBunguId(sl.getBunguId()), eqMngId(sl.getMngId()),
                                 eqWateruserName(sl.getConsumerName()), eqNewAddress(sl.getNewAddress()),
-                                eqWateruserState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
+                                eqConsumerState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
                                 eqMeterBattery(sl.getMeteringSignalStatus()), eqOverflow(sl.getMeteringSignalStatus()),
                                 eqWaterleak(sl.getMeteringSignalStatus()),eqDisconnected(sl.getModemSignalStatus()),
                                 eqTimeSync(sl.getModemSignalStatus()), eqModemBattery(sl.getModemSignalStatus()), eqConsumerCaliber(sl.getConsumerCaliber()))
@@ -153,11 +154,11 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         return consumerInstallInfo.new_address.eq(newAddress);
     }
 
-    private BooleanExpression eqWateruserState(String wateruserState) {
-        if (wateruserState == null || wateruserState == "") {
+    private BooleanExpression eqConsumerState(String consumerState) {
+        if (consumerState == null || consumerState == "") {
             return null;
         }
-        return consumerInstallInfo.wateruser_state.eq(wateruserState);
+        return consumerInstallInfo.wateruser_state.eq(consumerState);
     }
 
     private BooleanExpression eqBackflow(String backflow) {
@@ -188,12 +189,12 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         return meterdaily.meter_waterleak.eq(waterleak);
     }
 
-    private BooleanExpression eqModemRssi(String modemRssi) {
-        if (modemRssi == null) {
-            return null;
-        }
-        return meterdaily.modem_rssi.eq(modemRssi);
-    }
+//    private BooleanExpression eqModemRssi(String modemRssi) {
+//        if (modemRssi == null) {
+//            return null;
+//        }
+//        return meterdaily.modem_rssi.eq(modemRssi);
+//    }
 
     private BooleanExpression eqDisconnected(String disconnected) {
         if (disconnected == null || disconnected == "") {
