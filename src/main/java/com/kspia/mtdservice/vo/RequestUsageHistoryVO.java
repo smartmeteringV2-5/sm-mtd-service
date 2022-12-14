@@ -23,12 +23,12 @@ import java.util.Date;
  */
 @Data
 public class RequestUsageHistoryVO {
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime fromDate;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date toDate;
+	private LocalDateTime toDate;
 //	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
 //	private Date standardDate;

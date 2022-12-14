@@ -2,6 +2,7 @@ package com.kspia.mtdservice.repository.impl;
 
 import com.kspia.mtdservice.dto.StatusCheckDto;
 import com.kspia.mtdservice.entity.QConsumerInstallInfo;
+import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
 import com.kspia.mtdservice.repository.StatusCheckRepository;
 import com.kspia.mtdservice.vo.RequestUsageHistoryVO;
@@ -40,7 +41,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         this.jpaQueryFactory = jpaQueryFactory;
     }
 
-    QConsumerInstallInfo consumerInstallInfo = QConsumerInstallInfo.consumerInstallInfo;
+    QConsumerModemInfo consumerInstallInfo = QConsumerModemInfo.consumerModemInfo;
     QMeterdaily meterdaily = QMeterdaily.meterdaily;
 
     //실시간 현황 조회 검색 리스트
@@ -96,14 +97,14 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
 
 
     private BooleanExpression eqAreaId(String areaId) {
-        if (areaId == null) {
+        if (areaId == null || areaId.equals("00")) {
             return null;
         }
         return consumerInstallInfo.area_id.eq(areaId);
     }
 
     private BooleanExpression eqCheckDay(String checkDay) {
-        if (checkDay == null) {
+        if (checkDay == null || checkDay == "") {
             return null;
         }
         return consumerInstallInfo.check_day.eq(checkDay);
@@ -118,70 +119,70 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
     }
 
     private BooleanExpression eqDongNm(String dongNm) {
-        if (dongNm == null) {
+        if (dongNm == null || dongNm == "") {
             return null;
         }
         return consumerInstallInfo.dong_nm.eq(dongNm);
     }
 
     private BooleanExpression eqBunguId(String bunguId) {
-        if (bunguId == null) {
+        if (bunguId == null || bunguId == "") {
             return null;
         }
         return consumerInstallInfo.dividarea.eq(bunguId);
     }
 
     private BooleanExpression eqMngId(String mngId) {
-        if (mngId == null) {
+        if (mngId == null || mngId == "") {
             return null;
         }
         return consumerInstallInfo.mng_id.eq(mngId);
     }
 
     private BooleanExpression eqWateruserName(String wateruserName) {
-        if (wateruserName == null) {
+        if (wateruserName == null || wateruserName == "") {
             return null;
         }
         return consumerInstallInfo.wateruser_name.eq(wateruserName);
     }
 
     private BooleanExpression eqNewAddress(String newAddress) {
-        if (newAddress == null) {
+        if (newAddress == null || newAddress == "") {
             return null;
         }
         return consumerInstallInfo.new_address.eq(newAddress);
     }
 
     private BooleanExpression eqWateruserState(String wateruserState) {
-        if (wateruserState == null) {
+        if (wateruserState == null || wateruserState == "") {
             return null;
         }
         return consumerInstallInfo.wateruser_state.eq(wateruserState);
     }
 
     private BooleanExpression eqBackflow(String backflow) {
-        if (backflow == null) {
+        if (backflow == null || backflow == "") {
             return null;
         }
         return meterdaily.meter_backflow.eq((backflow));
     }
 
     private BooleanExpression eqMeterBattery(String meterBattery) {
-        if (meterBattery == null) {
+        if (meterBattery == null || meterBattery == "") {
             return null;
         }
         return meterdaily.meter_battery.eq(meterBattery);
     }
 
     private BooleanExpression eqOverflow(String overflow) {
-        if (overflow == null) {
+        if (overflow == null || overflow == "") {
             return null;
         }
         return meterdaily.meter_overflow.eq(overflow);
     }
 
     private BooleanExpression eqWaterleak(String waterleak) {
-        if (waterleak == null) {
+        if (waterleak == null || waterleak == "") {
             return null;
         }
         return meterdaily.meter_waterleak.eq(waterleak);
@@ -195,28 +196,28 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
     }
 
     private BooleanExpression eqDisconnected(String disconnected) {
-        if (disconnected == null) {
+        if (disconnected == null || disconnected == "") {
             return null;
         }
         return meterdaily.modem_connect.eq(disconnected);
     }
 
     private BooleanExpression eqTimeSync(String timeSync) {
-        if (timeSync == null) {
+        if (timeSync == null || timeSync == "") {
             return null;
         }
         return meterdaily.time_sync.eq(timeSync);
     }
 
     private BooleanExpression eqModemBattery(String modemBattery) {
-        if (modemBattery == null) {
+        if (modemBattery == null || modemBattery == "") {
             return null;
         }
         return meterdaily.modem_battery.eq(modemBattery);
     }
 
     private BooleanExpression eqConsumerCaliber(String consumerCaliber) {
-        if (consumerCaliber == null) {
+        if (consumerCaliber == null || consumerCaliber == "") {
             return null;
         }
         return consumerInstallInfo.wateruser_gauge.eq(consumerCaliber);

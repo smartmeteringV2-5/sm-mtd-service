@@ -30,8 +30,8 @@ import java.time.LocalDate;
 @RequestMapping("/sm-mtd-service")
 public class MtdMeteringStatusCheckController {
     private final StatusCheckService statusCheckService;
-
-    @RequestMapping(value="/usageHistory/smartmeter/list/page", method = {RequestMethod.GET, RequestMethod.POST}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @RequestMapping(value="/usageHistory/smartmeter/list/page", method = {RequestMethod.POST}, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Page<StatusCheckDto> getSearch(@RequestBody RequestUsageHistoryVO search, Pageable pageable){
         Page<StatusCheckDto> statusCheckList = statusCheckService.getSearch(search, pageable);
