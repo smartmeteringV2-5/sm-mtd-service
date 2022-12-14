@@ -60,8 +60,8 @@ public class DashboardController {
     
     @PostMapping(value = "/dashboard/waterUsage/graph/weekly", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<ResponseWeeklyUsage> getDalilyUsageWeekly() throws Exception {
-        return service.getDalilyUsageWeekly();
+    public Map<String, Object> getDailyUsageWeekly() throws Exception {
+        return service.getDailyUsageWeekly();
     }
     
     @PostMapping(value = "/dashboard/equipStateMap", produces = MediaType.APPLICATION_JSON_VALUE)

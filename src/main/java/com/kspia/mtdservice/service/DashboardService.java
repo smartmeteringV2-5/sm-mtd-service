@@ -30,8 +30,8 @@ import java.util.Map;
  */
 public interface DashboardService {
 	ResponseMeterCount getMeterCount();
-    
-    List<ResponseWeeklyUsage> getDalilyUsageWeekly();
+
+    Map<String, Object> getDailyUsageWeekly();
     
     ResponseModemCount getModemCount();
 

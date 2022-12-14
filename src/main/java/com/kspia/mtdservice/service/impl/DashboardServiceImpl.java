@@ -51,8 +51,10 @@ public class DashboardServiceImpl implements DashboardService {
         return meterdailyRepository.countByMeterStatus();
       }
     
-    public List<ResponseWeeklyUsage> getDalilyUsageWeekly() {
-        return meterdailyRepository.findByDailyDateAndDailyUsage();
+    public Map<String, Object> getDailyUsageWeekly() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("dailyUsage", meterdailyRepository.findByDailyDateAndDailyUsage());
+        return map;
       }
 
     @Override
