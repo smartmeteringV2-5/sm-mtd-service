@@ -21,5 +21,5 @@ import java.util.List;
 @Repository
 @Service
 public interface WatertermRepository {
-    List<Long> countByTerm();
+    Long countByTerm();
 }
