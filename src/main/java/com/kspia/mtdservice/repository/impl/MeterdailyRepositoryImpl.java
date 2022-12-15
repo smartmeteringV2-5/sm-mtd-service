@@ -116,7 +116,8 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
     @Override
     public int countByReceivingState(String receivingState) {
         return jpaQueryFactory
-            .selectFrom(meterdaily)
+            .select(meterdaily.meterdailyId.modem_id)
+            .from(meterdaily)
             .where(meterdaily.meterdailyId.daily_date.goe(LocalDate.from(LocalDate.now().minusDays(5).atStartOfDay())),
                 meterdaily.meterdailyId.daily_date.loe(LocalDate.from(LocalDate.now().atStartOfDay())),
                 meterdaily.daily_tag.eq("N"))
@@ -137,9 +138,9 @@ public class MeterdailyRepositoryImpl implements MeterdailyRepository {
                     consumerModemInfo.wateruser_type.as("waterUserType")
                 )
             )
-            .from(meterdaily)
-            .leftJoin(consumerModemInfo)
-            .on(meterdaily.meterdailyId.modem_id.eq(consumerModemInfo.modem_id))
+            .from(consumerModemInfo)
+            .innerJoin(meterdaily)
+            .on(consumerModemInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))
             .where(meterdaily.meterdailyId.daily_date.goe(LocalDate.from(LocalDate.now().minusDays(5).atStartOfDay())),
                 meterdaily.meterdailyId.daily_date.loe(LocalDate.from(LocalDate.now().atStartOfDay())),
                 meterdaily.daily_tag.eq("N"))
