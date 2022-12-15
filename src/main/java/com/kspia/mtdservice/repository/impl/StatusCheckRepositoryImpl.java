@@ -12,9 +12,8 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.core.annotation.Order;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
@@ -48,7 +47,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
     //실시간 현황 조회 검색 리스트
     @Override
     @NotNull
-    public Page<StatusCheckDto> statusCheckByMetering(RequestUsageHistoryVO sl, Pageable pageable) {
+    public Page<StatusCheckDto> statusCheckByMetering(RequestUsageHistoryVO sl,Pageable pageable) {
         List<StatusCheckDto> results = jpaQueryFactory.select(Projections.fields(StatusCheckDto.class,
                         consumerInstallInfo.check_day.as("checkDay"),
                         consumerInstallInfo.mng_id.as("mngId"),
@@ -80,8 +79,8 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         eqDisconnected(sl.getMeteringSignalStatus()), eqModemBattery(sl.getModemSignalStatus()),
                         eqConsumerCaliber(sl.getConsumerCaliber()))
                 //
-                .offset(pageable.getOffset()) /*offset*/
-                .limit(pageable.getPageSize())
+                .offset(sl.getPage()*sl.getSize()) /*offset*/
+                .limit(sl.getSize())
                 .fetch();
                 System.out.println(sl.getModemSignalStatus());
                 System.out.println(sl.getMeteringSignalStatus());
@@ -97,8 +96,8 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                                 eqTimeSync(sl.getModemSignalStatus()), eqModemBattery(sl.getModemSignalStatus()),
                                 eqConsumerCaliber(sl.getConsumerCaliber()))
                         .fetchOne();
-
-        return new PageImpl<>(results, pageable, total);
+                Pageable pageable1 = PageRequest.of(sl.getPage(),sl.getSize(),Sort.by("asc"));
+        return new PageImpl<>(results, pageable1, total);
     }
 
 

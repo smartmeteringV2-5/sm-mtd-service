@@ -23,6 +23,10 @@ import java.util.Date;
  */
 @Data
 public class RequestUsageHistoryVO {
+
+	private int page;
+	private int size;
+
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime fromDate;

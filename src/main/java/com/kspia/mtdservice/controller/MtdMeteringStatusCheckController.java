@@ -36,10 +36,8 @@ public class MtdMeteringStatusCheckController {
     @ResponseBody
     @RequestMapping(value="/usageHistory/smartmeter/list/page", method = {RequestMethod.POST}, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Page<StatusCheckDto> getSearch(@RequestBody RequestUsageHistoryVO search,
-                                          @PageableDefault(size=20, sort="id", direction = Sort.Direction.DESC) Pageable pageable){
+    public Page<StatusCheckDto> getSearch(@RequestBody RequestUsageHistoryVO search, Pageable pageable){
         Page<StatusCheckDto> statusCheckList = statusCheckService.getSearch(search, pageable);
-        List<StatusCheckDto> test = statusCheckList.getContent();
         return statusCheckList;
     }
 }
