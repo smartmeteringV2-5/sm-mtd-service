@@ -33,12 +33,11 @@ public class MtdWaterTermController {
 
     @PostMapping(value = "/dashboard/InstallCount", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, Integer> termCount() throws Exception{
+    public Map<String, Long> termCount() throws Exception{
 
-        Map<String, Integer> map = new HashMap<>();
-        List<Long> number = watertermService.getTotalCount();
-        int cnt = Math.toIntExact(number.get(0));
-        map.put("installCnt", cnt);
+        Map<String, Long> map = new HashMap<>();
+        Long number = watertermService.getTotalCount();
+        map.put("installCnt", number);
         return map;
     }
 

@@ -15,5 +15,5 @@ import java.util.List;
  * 2022.12. 08 jung : 단말기 카운트 작업
  */
 public interface WatertermService {
-    List<Long> getTotalCount();
+    Long getTotalCount();
 }

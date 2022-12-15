@@ -1,6 +1,7 @@
 package com.kspia.mtdservice.repository.impl;
 
 import com.kspia.mtdservice.entity.QConsumerInstallInfo;
+import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.kspia.mtdservice.repository.WatertermRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -28,10 +29,10 @@ public class WatertermRepositoryImpl implements WatertermRepository {
     }
 
     @Override
-    public List<Long> countByTerm() {
+    public Long countByTerm() {
 
-        QConsumerInstallInfo consumerInstallInfo = QConsumerInstallInfo.consumerInstallInfo;
-        return jpaQueryFactory.select(consumerInstallInfo.count()).from(consumerInstallInfo)
-                .fetch();
+        QConsumerModemInfo consumerModemInfo = QConsumerModemInfo.consumerModemInfo;
+        return jpaQueryFactory.select(consumerModemInfo.modem_id.count()).from(consumerModemInfo)
+                .fetchOne();
     }
 }
