@@ -65,7 +65,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         new CaseBuilder().when(meterdaily.modem_battery.in("0,1")).then("저전압").otherwise("정상").as("modemBattery"),
                         new CaseBuilder().when(meterdaily.modem_connect.eq("0")).then("정상").otherwise("통신불량").as("disconnected"),
                         new CaseBuilder().when(meterdaily.time_sync.eq("1")).then("정상").otherwise("오류").as("timeSync"),
-                        meterdaily.modem_rssi.as("modem_rssi"),meterdaily.metering_date.as("metering_date"),
+                        meterdaily.modem_rssi.as("modem_rssi"),meterdaily.metering_date.as("meteringDate"),
                         consumerInstallInfo.wateruser_state.as("waterUserState")
                 ))
                 .from(consumerInstallInfo)
@@ -90,7 +90,8 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                                 eqConsumerState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
                                 eqMeterBattery(sl.getMeteringSignalStatus()), eqOverflow(sl.getMeteringSignalStatus()),
                                 eqWaterleak(sl.getMeteringSignalStatus()),eqDisconnected(sl.getModemSignalStatus()),
-                                eqTimeSync(sl.getModemSignalStatus()), eqModemBattery(sl.getModemSignalStatus()), eqConsumerCaliber(sl.getConsumerCaliber()))
+                                eqTimeSync(sl.getModemSignalStatus()), eqModemBattery(sl.getModemSignalStatus()),
+                                eqConsumerCaliber(sl.getConsumerCaliber()))
                         .fetchOne();
 
         return new PageImpl<>(results, pageable, total);
@@ -153,10 +154,35 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         }
         return consumerInstallInfo.new_address.eq(newAddress);
     }
-
     private BooleanExpression eqConsumerState(String consumerState) {
         if (consumerState == null || consumerState == "") {
             return null;
+        }
+        switch (consumerState) {
+            case "CST0201000" :
+                consumerState = "정상";
+                break;
+            case "CST0202000" :
+                consumerState = "설치대기";
+                break;
+            case "CST0203000" :
+                consumerState = "정수처분";
+                break;
+            case "CST0204000" :
+                consumerState = "급수정지";
+                break;
+            case "CST0205000" :
+                consumerState = "폐전";
+                break;
+            case "CST0206000" :
+                consumerState = "구경확대";
+                break;
+            case "CST0207000" :
+                consumerState = "기계식";
+                break;
+            case "CST0208000" :
+                consumerState = "체납";
+                break;
         }
         return consumerInstallInfo.wateruser_state.eq(consumerState);
     }
