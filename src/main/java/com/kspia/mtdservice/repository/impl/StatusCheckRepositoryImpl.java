@@ -57,14 +57,14 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         consumerInstallInfo.wateruser_id.as("waterUserId"),
                         consumerInstallInfo.wateruser_indust.as("waterUserIndust"),
                         consumerInstallInfo.wateruser_gauge.as("consumerCaliber"),
-                        meterdaily.new_value.as("new_value"),
-                        new CaseBuilder().when(meterdaily.meter_backflow.eq("0")).then("정상").otherwise("역류").as("backflow"),
-                        new CaseBuilder().when(meterdaily.meter_battery.in("1,2")).then("저전압").otherwise("정상").as("meterBattery"),
-                        new CaseBuilder().when(meterdaily.meter_overflow.eq("0")).then("정상").otherwise("과부화").as("overflow"),
-                        new CaseBuilder().when(meterdaily.meter_waterleak.eq("0")).then("정상").otherwise("누수").as("waterleak"),
-                        new CaseBuilder().when(meterdaily.modem_battery.in("0,1")).then("저전압").otherwise("정상").as("modemBattery"),
-                        new CaseBuilder().when(meterdaily.modem_connect.eq("0")).then("정상").otherwise("통신불량").as("disconnected"),
-                        new CaseBuilder().when(meterdaily.time_sync.eq("1")).then("정상").otherwise("오류").as("timeSync"),
+                        meterdaily.new_value.as("meteringValue"),
+                        new CaseBuilder().when(meterdaily.meter_backflow.eq("0")).then("X").otherwise("O").as("backflow"),
+                        new CaseBuilder().when(meterdaily.meter_battery.in("1,2")).then("O").otherwise("X").as("meterBattery"),
+                        new CaseBuilder().when(meterdaily.meter_overflow.eq("0")).then("X").otherwise("O").as("overflow"),
+                        new CaseBuilder().when(meterdaily.meter_waterleak.eq("0")).then("X").otherwise("O").as("waterleak"),
+                        new CaseBuilder().when(meterdaily.modem_battery.in("0,1")).then("X").otherwise("X").as("modemBattery"),
+                        new CaseBuilder().when(meterdaily.modem_connect.eq("0")).then("X").otherwise("O").as("disconnected"),
+                        new CaseBuilder().when(meterdaily.time_sync.eq("1")).then("X").otherwise("O").as("timeSync"),
                         meterdaily.modem_rssi.as("modem_rssi"),meterdaily.metering_date.as("meteringDate"),
                         consumerInstallInfo.wateruser_state.as("waterUserState")
                 ))
@@ -75,12 +75,16 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         eqDongNm(sl.getDongId()), eqBunguId(sl.getBunguId()), eqMngId(sl.getMngId()),
                         eqWateruserName(sl.getConsumerName()), eqNewAddress(sl.getNewAddress()),
                         eqConsumerState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
-                        eqMeterBattery(sl.getMeteringSignalStatus()), eqOverflow(sl.getModemSignalStatus()),
-                        eqTimeSync(sl.getModemSignalStatus()), eqModemBattery(sl.getModemSignalStatus()), eqConsumerCaliber(sl.getConsumerCaliber()))
+                        eqMeterBattery(sl.getMeteringSignalStatus()), eqOverflow(sl.getMeteringSignalStatus()),
+                        eqWaterleak(sl.getMeteringSignalStatus()), eqTimeSync(sl.getModemSignalStatus()),
+                        eqDisconnected(sl.getMeteringSignalStatus()), eqModemBattery(sl.getModemSignalStatus()),
+                        eqConsumerCaliber(sl.getConsumerCaliber()))
                 //
                 .offset(pageable.getOffset()) /*offset*/
                 .limit(pageable.getPageSize())
                 .fetch();
+                System.out.println(sl.getModemSignalStatus());
+                System.out.println(sl.getMeteringSignalStatus());
                 //페이지 총 카운트 구하기
                 long total = jpaQueryFactory.select(consumerInstallInfo.count()).from(consumerInstallInfo)
                         .join(meterdaily).on(consumerInstallInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))

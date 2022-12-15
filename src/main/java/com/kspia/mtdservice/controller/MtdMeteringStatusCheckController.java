@@ -6,12 +6,15 @@ import com.kspia.mtdservice.vo.RequestUsageHistoryVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @since 2022. 12. 9
@@ -33,9 +36,10 @@ public class MtdMeteringStatusCheckController {
     @ResponseBody
     @RequestMapping(value="/usageHistory/smartmeter/list/page", method = {RequestMethod.POST}, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Page<StatusCheckDto> getSearch(@RequestBody RequestUsageHistoryVO search, Pageable pageable){
+    public Page<StatusCheckDto> getSearch(@RequestBody RequestUsageHistoryVO search,
+                                          @PageableDefault(size=20, sort="id", direction = Sort.Direction.DESC) Pageable pageable){
         Page<StatusCheckDto> statusCheckList = statusCheckService.getSearch(search, pageable);
-        System.out.println(statusCheckList);
+        List<StatusCheckDto> test = statusCheckList.getContent();
         return statusCheckList;
     }
 }

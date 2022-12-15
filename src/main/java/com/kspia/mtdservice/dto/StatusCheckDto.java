@@ -41,7 +41,7 @@ public class StatusCheckDto {
     //구경
     private String consumerCaliber;
     //지침
-    private BigDecimal new_value;
+    private BigDecimal meteringValue;
     //온도
     private BigDecimal meteringTemp;
     //계랑기 상태
@@ -50,7 +50,6 @@ public class StatusCheckDto {
     private String overflow; //과부화
     private String waterleak; //누수
     //단말기 상태
-    private String modem_rssi;
     private String disconnected; //결선불량
     private String timeSync;
     private String modemBattery;
