@@ -33,9 +33,6 @@ public class RequestUsageHistoryVO {
 	@JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime toDate;
-//	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
-//	private Date standardDate;
 	private String areaId;  // - 사업소
 	private String dongId;  // - 동
 	private String bunguId;  // - 분구

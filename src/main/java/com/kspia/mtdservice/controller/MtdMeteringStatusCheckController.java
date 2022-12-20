@@ -38,6 +38,9 @@ public class MtdMeteringStatusCheckController {
     @ResponseStatus(HttpStatus.OK)
     public Page<StatusCheckDto> getSearch(@RequestBody RequestUsageHistoryVO search, Pageable pageable){
         Page<StatusCheckDto> statusCheckList = statusCheckService.getSearch(search, pageable);
+        for (StatusCheckDto s : statusCheckList){
+            s.setReceivingDate(s.getMeteringDate());
+        }
         return statusCheckList;
     }
 }

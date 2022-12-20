@@ -1,7 +1,9 @@
 package com.kspia.mtdservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -54,9 +56,9 @@ public class StatusCheckDto {
     private String timeSync;
     private String modemBattery;
     //검침 일시
-    private Date metering_date;
+    private Date meteringDate;
     //수신 일시
-    private Date receiving_date;
+    private Date receivingDate;
     //급수전 구분
     private String waterUserState;
 }

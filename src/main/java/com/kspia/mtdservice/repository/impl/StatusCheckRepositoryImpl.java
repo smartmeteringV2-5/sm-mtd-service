@@ -64,8 +64,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         new CaseBuilder().when(meterdaily.modem_battery.in("0,1")).then("X").otherwise("X").as("modemBattery"),
                         new CaseBuilder().when(meterdaily.modem_connect.eq("0")).then("X").otherwise("O").as("disconnected"),
                         new CaseBuilder().when(meterdaily.time_sync.eq("1")).then("X").otherwise("O").as("timeSync"),
-                        meterdaily.modem_rssi.as("modem_rssi"),meterdaily.metering_date.as("meteringDate"),
-                        consumerInstallInfo.wateruser_state.as("waterUserState")
+                        meterdaily.metering_date.as("meteringDate"),consumerInstallInfo.wateruser_state.as("waterUserState")
                 ))
                 .from(consumerInstallInfo)
                 .join(meterdaily)
@@ -79,11 +78,9 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         eqDisconnected(sl.getMeteringSignalStatus()), eqModemBattery(sl.getModemSignalStatus()),
                         eqConsumerCaliber(sl.getConsumerCaliber()))
                 //
-                .offset(sl.getPage()*sl.getSize()) /*offset*/
+                .offset(sl.getPage()*sl.getSize()) /*offset   sl.getPage()*sl.getSize()*/
                 .limit(sl.getSize())
                 .fetch();
-                System.out.println(sl.getModemSignalStatus());
-                System.out.println(sl.getMeteringSignalStatus());
                 //페이지 총 카운트 구하기
                 long total = jpaQueryFactory.select(consumerInstallInfo.count()).from(consumerInstallInfo)
                         .join(meterdaily).on(consumerInstallInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))
