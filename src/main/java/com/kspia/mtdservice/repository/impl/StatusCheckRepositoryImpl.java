@@ -1,25 +1,20 @@
 package com.kspia.mtdservice.repository.impl;
 
 import com.kspia.mtdservice.dto.StatusCheckDto;
-import com.kspia.mtdservice.entity.QConsumerInstallInfo;
 import com.kspia.mtdservice.entity.QConsumerModemInfo;
 import com.kspia.mtdservice.entity.QMeterdaily;
 import com.kspia.mtdservice.repository.StatusCheckRepository;
 import com.kspia.mtdservice.vo.RequestUsageHistoryVO;
-import com.querydsl.core.types.Expression;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +42,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
     //실시간 현황 조회 검색 리스트
     @Override
     @NotNull
-    public Page<StatusCheckDto> statusCheckByMetering(RequestUsageHistoryVO sl,Pageable pageable) {
+    public Page<StatusCheckDto> statusCheckByMetering(RequestUsageHistoryVO sl, Pageable pageable) {
         List<StatusCheckDto> results = jpaQueryFactory.select(Projections.fields(StatusCheckDto.class,
                         consumerInstallInfo.check_day.as("checkDay"),
                         consumerInstallInfo.mng_id.as("mngId"),
@@ -64,7 +59,7 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         new CaseBuilder().when(meterdaily.modem_battery.in("0,1")).then("X").otherwise("X").as("modemBattery"),
                         new CaseBuilder().when(meterdaily.modem_connect.eq("0")).then("X").otherwise("O").as("disconnected"),
                         new CaseBuilder().when(meterdaily.time_sync.eq("1")).then("X").otherwise("O").as("timeSync"),
-                        meterdaily.metering_date.as("meteringDate"),consumerInstallInfo.wateruser_state.as("waterUserState")
+                        meterdaily.metering_date.as("meteringDate"), consumerInstallInfo.wateruser_state.as("waterUserState")
                 ))
                 .from(consumerInstallInfo)
                 .join(meterdaily)
@@ -78,22 +73,22 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         eqDisconnected(sl.getMeteringSignalStatus()), eqModemBattery(sl.getModemSignalStatus()),
                         eqConsumerCaliber(sl.getConsumerCaliber()))
                 //
-                .offset(sl.getPage()*sl.getSize()) /*offset   sl.getPage()*sl.getSize()*/
+                .offset(sl.getPage() * sl.getSize()) /*offset   sl.getPage()*sl.getSize()*/
                 .limit(sl.getSize())
                 .fetch();
-                //페이지 총 카운트 구하기
-                long total = jpaQueryFactory.select(consumerInstallInfo.count()).from(consumerInstallInfo)
-                        .join(meterdaily).on(consumerInstallInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))
-                        .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getFromDate()),
-                                eqDongNm(sl.getDongId()), eqBunguId(sl.getBunguId()), eqMngId(sl.getMngId()),
-                                eqWateruserName(sl.getConsumerName()), eqNewAddress(sl.getNewAddress()),
-                                eqConsumerState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
-                                eqMeterBattery(sl.getMeteringSignalStatus()), eqOverflow(sl.getMeteringSignalStatus()),
-                                eqWaterleak(sl.getMeteringSignalStatus()),eqDisconnected(sl.getModemSignalStatus()),
-                                eqTimeSync(sl.getModemSignalStatus()), eqModemBattery(sl.getModemSignalStatus()),
-                                eqConsumerCaliber(sl.getConsumerCaliber()))
-                        .fetchOne();
-                Pageable pageable1 = PageRequest.of(sl.getPage(),sl.getSize(),Sort.by("asc"));
+        //페이지 총 카운트 구하기
+        long total = jpaQueryFactory.select(consumerInstallInfo.count()).from(consumerInstallInfo)
+                .join(meterdaily).on(consumerInstallInfo.modem_id.eq(meterdaily.meterdailyId.modem_id))
+                .where(eqAreaId(sl.getAreaId()), eqCheckDay(sl.getCheckDay()), eqDailyDate(sl.getFromDate()),
+                        eqDongNm(sl.getDongId()), eqBunguId(sl.getBunguId()), eqMngId(sl.getMngId()),
+                        eqWateruserName(sl.getConsumerName()), eqNewAddress(sl.getNewAddress()),
+                        eqConsumerState(sl.getConsumerState()), eqBackflow(sl.getMeteringSignalStatus()),
+                        eqMeterBattery(sl.getMeteringSignalStatus()), eqOverflow(sl.getMeteringSignalStatus()),
+                        eqWaterleak(sl.getMeteringSignalStatus()), eqDisconnected(sl.getModemSignalStatus()),
+                        eqTimeSync(sl.getModemSignalStatus()), eqModemBattery(sl.getModemSignalStatus()),
+                        eqConsumerCaliber(sl.getConsumerCaliber()))
+                .fetchOne();
+        Pageable pageable1 = PageRequest.of(sl.getPage(), sl.getSize(), Sort.by("asc"));
         return new PageImpl<>(results, pageable1, total);
     }
 
@@ -154,33 +149,34 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
         }
         return consumerInstallInfo.new_address.eq(newAddress);
     }
+
     private BooleanExpression eqConsumerState(String consumerState) {
         if (consumerState == null || consumerState == "") {
             return null;
         }
         switch (consumerState) {
-            case "CST0201000" :
+            case "CST0201000":
                 consumerState = "정상";
                 break;
-            case "CST0202000" :
+            case "CST0202000":
                 consumerState = "설치대기";
                 break;
-            case "CST0203000" :
+            case "CST0203000":
                 consumerState = "정수처분";
                 break;
-            case "CST0204000" :
+            case "CST0204000":
                 consumerState = "급수정지";
                 break;
-            case "CST0205000" :
+            case "CST0205000":
                 consumerState = "폐전";
                 break;
-            case "CST0206000" :
+            case "CST0206000":
                 consumerState = "구경확대";
                 break;
-            case "CST0207000" :
+            case "CST0207000":
                 consumerState = "기계식";
                 break;
-            case "CST0208000" :
+            case "CST0208000":
                 consumerState = "체납";
                 break;
         }
