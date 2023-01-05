@@ -72,7 +72,6 @@ public class StatusCheckRepositoryImpl implements StatusCheckRepository {
                         eqWaterleak(sl.getMeteringSignalStatus()), eqTimeSync(sl.getModemSignalStatus()),
                         eqDisconnected(sl.getMeteringSignalStatus()), eqModemBattery(sl.getModemSignalStatus()),
                         eqConsumerCaliber(sl.getConsumerCaliber()))
-                //
                 .offset(sl.getPage() * sl.getSize()) /*offset   sl.getPage()*sl.getSize()*/
                 .limit(sl.getSize())
                 .fetch();
