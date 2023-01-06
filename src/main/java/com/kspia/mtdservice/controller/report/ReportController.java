@@ -35,9 +35,6 @@ public class ReportController {
     @ResponseStatus(HttpStatus.OK)
     public Page<ReportDto> getList(@RequestBody RequestReportVo re, Pageable pageable){
         Page<ReportDto> reportCheckList = reportService.getList(re, pageable);
-        for (ReportDto r : reportCheckList) {
-            System.out.println(r.getModemBattery());
-        }
         return reportCheckList;
     }
 }

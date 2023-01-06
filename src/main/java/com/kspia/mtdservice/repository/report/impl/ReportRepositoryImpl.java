@@ -39,11 +39,12 @@ public class ReportRepositoryImpl implements ReportRepository {
     @Override
     @NotNull
     public Page<ReportDto> reportCheckByList(RequestReportVo re, Pageable pageable) {
+
         List<ReportDto> results = jpaQueryFactory.select(Projections.fields(ReportDto.class,
                 meterDataSeoulNbiot.meterDataSeoulNbiotId.imei.as("imei"),
                 meterDataSeoulNbiot.meterDataSeoulNbiotId.metering_date.as("meteringDate"),
-                new CaseBuilder().when(meterDataSeoulNbiot.modem_battery.in(2.000,4.000)).then("정상")
-                        .otherwise("저전압").as("modemBattery "),
+                new CaseBuilder().when(meterDataSeoulNbiot.modem_battery.between(2.000, 4.000)).then("정상")
+                        .otherwise("저전압").as("modemBattery"),
                 new CaseBuilder().when(meterDataSeoulNbiot.metering_value.eq(-99.000)).then("결선")
                         .otherwise("정상").as("meteringValue")
                 ))
@@ -77,7 +78,7 @@ public class ReportRepositoryImpl implements ReportRepository {
     }
 
     private BooleanExpression eqModemBattery(String modemBattery){
-        if (modemBattery == null || modemBattery == "" ) {
+        if (modemBattery == null || modemBattery == "") {
             return null;
         }
         System.out.println(modemBattery);
